@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Job Position Page -->
+<odoo>
+    <template id="job_page_template_id" name="Job Page">
+        <t t-call="website.layout">
+                <h2>Available Job Positions</h2>
+                <t t-if="jobs">
+                    <ul>
+                        <t t-foreach="jobs" t-as="job">
+                            <li>
+                                <b><t t-esc="job.name"/></b> - 
+                                <t t-esc="job.department_id.name"/>
+                                <a t-att-href="'/jobs/apply/%s' % job.id" class="btn btn-primary btn-sm ms-2">Apply</a>
+                            </li>
+                        </t>
+                    </ul>
+                </t>
+                <t t-else="no jobs">
+                    <p>No active job openings at the moment.</p>
+                </t>
+        </t>
+    </template>
+
+    <!-- Job Apply page -->
+    <template id="job_apply_template_id" name="Job Apply">
+        <t t-call="website.layout">
+            <h2>Job Portal</h2>
+           <form action="/jobs/apply"  method="post" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <div class="form-group mb-3">
+                    <label>Name</label>
+                    <input type="text" name="name" class="form-control" required="required"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" required="required"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Phone</label>
+                    <input type="text" name="phone" class="form-control"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label>CV Upload</label>
+                    <input type="file" name="cv_attachment" class="form-control"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Application</button>
+            </form>
+        </t>
+    </template>
+
+    <!-- Job success page -->
+    <template id="job_success_page" name="Job Success Page">
+        <t t-call="website.layout">
+            <div class="container my-5 text-center">
+                <h2>Application Submitted Successfully!</h2>
+                <p>
+                    Thank you for applying to this job.<br/>
+                    Our HR team will contact you soon.
+                </p>
+                <a href="/jobs" class="btn btn-primary">Back to Jobs</a>
+            </div>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,11 @@
+<odoo>
+    <record id="job_shortlist_server_action" model="ir.actions.server">
+        <field name="name">Send Shortlist Email</field>
+        <field name="model_id" ref="JobPortal.model_job_application"/>
+        <field name="state">email</field>
+        <field name="template_id" ref="JobPortal.job_shortlisted_email_template"/>
+        <field name="binding_model_id" ref="JobPortal.model_job_application"/>
+        <field name="binding_type">action</field>
+    </record>
+</odoo>
+
