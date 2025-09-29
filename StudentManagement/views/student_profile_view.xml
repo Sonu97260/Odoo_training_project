@@ -1,0 +1,13 @@
+<odoo>
+    <template id="student_profile_portal" name="My Portal">
+        <t t-call="website.layout">
+           <div class="container mt-4">
+                <h2>Student Profile</h2>
+                <p><strong>Name :</strong><t t-esc="student.name"/></p>
+                <p><strong>Email :</strong><t t-esc="student.email"/></p>
+                <p><strong>Gender :</strong><t t-esc="student.gender"/></p>
+                <p><strong>phone :</strong><t t-esc="student.phone"/></p>
+            </div>        
+        </t>
+    </template>
+</odoo>

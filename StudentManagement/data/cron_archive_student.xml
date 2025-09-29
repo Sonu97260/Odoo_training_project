@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="cron_auto_archive_student" model="ir.cron">
+      <field name="name">Auto Archive Students</field>
+      <field name="model_id" ref="model_rest_student"/>
+      <field name="state">code</field>
+      <field name="code">model.auto_archive_students()</field>
+      <field name="user_id" ref="base.user_admin"/>
+      <field name="interval_number">1</field>
+       <!-- <field name="interval_type">year</field> -->
+      <field name="active" eval="True"/>        
+    </record>
+      <record id="cron_unpaidfees_reminder" model="ir.cron">
+        <field name="name">Auto Unpaid Fees Students Reminder</field>
+        <field name="model_id" ref="model_rest_student"/>
+        <field name="state">code</field>
+        <field name="code">model.unpaidfees_student_reminder()</field>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

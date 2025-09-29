@@ -1,0 +1,14 @@
+<odoo>
+
+     <record id="student_report_id" model="ir.actions.report">
+        <field name="name">student report </field>
+        <field name="model">rest.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">StudentManagement.student_report_template</field>
+        <field name="report_file">StudentManagement.student_report_template</field>
+        <field name="binding_model_id" ref="model_rest_student"/>
+        <field name="binding_type">report</field>
+        <!-- <field name="paperformat_id" ref="paperformat_event_order"/> -->
+    </record>
+
+</odoo>

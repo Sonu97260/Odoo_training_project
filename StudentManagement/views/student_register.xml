@@ -1,0 +1,90 @@
+<odoo>
+    <template id="student_register_template_id" name="Student Registration">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <h2>Student Registration Form</h2>  
+                <!-- Display error message if exists -->
+                <t t-if="error_message">
+                    <div class="alert alert-danger">
+                        <strong>Error:</strong> <t t-esc="error_message"/>
+                    </div>
+                </t> 
+                <form action="/student/register/submit" method="post">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    
+                    <div class="form-group mb-2">
+                        <label>Name: <span class="text-danger">*</span></label>
+                        <input type="text" name="name" required="1" class="form-control" 
+                               t-att-value="form_data.get('name', '') if form_data else ''"/>
+                    </div>
+                    
+                    <div class="form-group mb-2">
+                        <label>Email: <span class="text-danger">*</span></label>
+                        <input type="email" name="email" required="1" class="form-control"
+                               t-att-value="form_data.get('email', '') if form_data else ''"/>
+                    </div>
+                    
+                    <div class="form-group mb-2">
+                        <label>Gender:</label><br/>
+                        <input type="radio" name="gender" value="male" 
+                               t-att-checked="'checked' if form_data and form_data.get('gender') == 'male' else None"/> Male
+                        <input type="radio" name="gender" value="female" 
+                               t-att-checked="'checked' if form_data and form_data.get('gender') == 'female' else None"/> Female
+                    </div>
+                    
+                    <div class="form-group mb-2">
+                        <label>Courses:</label>
+                        <select name="courses" class="form-control">
+                            <option value="">Select Course</option>
+                            <option value="MBA" t-att-selected="'selected' if form_data and form_data.get('courses') == 'MBA' else None">MBA</option>
+                            <option value="BCA" t-att-selected="'selected' if form_data and form_data.get('courses') == 'BCA' else None">BCA</option>
+                            <option value="MSCIT" t-att-selected="'selected' if form_data and form_data.get('courses') == 'MSCIT' else None">MSCIT</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group mb-2">
+                        <label>Username: <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required="1" class="form-control"
+                               t-att-value="form_data.get('username', '') if form_data else ''"/>
+                        <small class="text-muted">Username must be unique and will be used for login</small>
+                    </div>
+                    
+                    <div class="form-group mb-2">
+                        <label>Password: <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required="1" class="form-control"/>
+                        <small class="text-muted">Minimum 6 characters</small>
+                    </div>
+                    
+                    <div class="form-group mb-2">
+                        <label>Contact No:</label>
+                        <input type="tel" name="phone" class="form-control"
+                               t-att-value="form_data.get('phone', '') if form_data else ''"/>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <a href="/student/register" class="btn btn-secondary ml-2">Clear Form</a>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="student_register_success_id" name="Registration Success">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <div class="alert alert-success">
+                    <h3>Thank you <t t-esc="student_name"/>!</h3>
+                    <p>Your registration has been submitted successfully.</p>
+                    <!-- <p>You can now login with your username and password.</p> -->
+                </div>
+                <!-- <a href="student/login" class="btn btn-primary">Login Now</a> -->
+            </div>
+        </t>
+    </template>
+
+    <record id="student_register_menu" model="website.menu" context="{'install_mode': True}">
+        <field name="name">Register</field>
+        <field name="url">/student/register</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">30</field>
+    </record>
+</odoo>

@@ -1,0 +1,14 @@
+<odoo>
+  <record id="student_sequnce" model="ir.sequence">
+    <field name="name">Student Sequence</field>
+    <field name="code">student.custom.sequence</field>
+    <field name="prefix">STD</field>
+    <field name="padding">1</field>
+  </record>
+  <record id="student_rollno" model="ir.sequence">
+    <field name="name">Student Roll no</field>
+    <field name="code">student.rollno.sequence</field>
+    <field name="prefix">A</field>
+    <field name="padding">1</field>
+  </record>
+</odoo>

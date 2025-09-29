@@ -1,0 +1,64 @@
+<odoo>
+    <template id="student_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <h2 align="center" >Student report</h2>
+                    <t t-foreach="docs" t-as="s">
+                        <div class="page">
+                            <p>
+                                <t t-if="s.image" t-esc="s.image"
+                                t-options="{'widget': 'image', 'style':'width:150px;height:150px;align:right;'}"/>
+
+                            </p>
+                            <style>
+                                .student {
+                                            font-family: cool_font;
+                                            padding: 11px;
+                                            color:black;
+                                            font-size:20px;
+                                            
+                                        }
+                                table, th, td {
+                                            border: 2px solid black;
+                                            border-collapse: collapse;
+                                            color:black;
+                                            font-size:20px;
+                                            }
+                                th, td  {
+                                            padding: 15px;
+                                            text-align: left;
+                                        }
+                            </style>
+                            <p class="student"><strong>Name: </strong><t t-esc="s.name"/></p>
+                            <p class="student"><strong>Email: </strong><t t-esc="s.email"/></p>
+                            <p class="student"><strong>Phone: </strong><t t-esc="s.phone"/></p>
+                            <p class="student"><strong>Student id: </strong><t t-esc="s.student_id"/></p>
+                            <p class="student"><strong>Class: </strong><t t-esc="s.class_id"/></p>
+                            <table border="width:100%;">
+                                <tr>
+                                    <th>Subjects</th>
+                                    <td>Marks</td>
+                                </tr>
+                                <tr>
+                                    <th>Maths</th>
+                                    <td><t t-esc="s.maths"/></td>
+                                </tr>
+                                <tr>
+                                    <th>English</th>
+                                    <td><t t-esc="s.english"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Gujarati</th>
+                                    <td><t t-esc="s.gujarati"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td><t t-esc="s.total"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+            </t>
+        </t>
+    </template>
+</odoo>
