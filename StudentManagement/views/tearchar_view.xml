@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="teacher_form_id" model="ir.ui.view">
+            <field name="name">teacher form id</field>
+            <field name="model">teacher.teacher</field>
+            <field name="arch" type="xml">
+                <form string="Teachar Details">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="contact_num"/>
+                            <field name="email"/>
+                            <field name="gender"/>
+                            <field name="address"/>
+                            <!-- <field name="category_id"/>
+                            <field name="user_id"/> -->
+                        </group>
+                        <notebook>
+                            <page string="Students">
+                                <field name="student_id"/>
+                            </page>    
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="teacher_list_view" model="ir.ui.view">
+            <field name="name">teacher list view</field>
+            <field name="model">teacher.teacher</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="contact_num"/>
+                    <field name="email"/>
+                    <field name="gender"/>
+                    <field name="address"/>
+                </list>
+            </field>
+        </record>
+        <!-- <record id="teacher_calendar_view" model="ir.ui.view">
+            <field name="name">teacher calendar view</field>
+            <field name="model">teacher.teacher</field>
+            <field name="arch" type="xml">
+                <calendar mode="month" date_start="date_request" color="name" event_open_popup="true">
+                    <field name="user_id"/>
+                    <field name="name"/>
+                    <field name="student_id"/>
+                </calendar>
+            </field>
+        </record> -->
+        
+        <record id="teacher_action_window" model="ir.actions.act_window">
+            <field name="name">Tearchar</field>
+            <field name="res_model">teacher.teacher</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>    
+</odoo>

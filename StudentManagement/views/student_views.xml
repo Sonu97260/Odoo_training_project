@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Form View -->
+        <record id="view_student_form_id" model="ir.ui.view">
+            <field name="name">view.student.form.id</field>
+            <field name="model">rest.student</field>
+            <field name="arch" type="xml">
+                <form string="Student Form">
+                    <header>
+                        <button type="object" string="show rainbow" class="oe_highlight" name="show_rainbow"/>
+                        <button type="object" string="send email" class="oe_highlight" name="send_email"/>
+                        <button type="object" string="Show Active Count" class="oe_highlight" name="get_active_student_count"/>
+                        <button name="report_student" type="object" string="Print Report" class="oe_highlight"/>
+                        <button name="unpaidfees_student_reminder" string="fees reminder" class="oe_highlight" type="object"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="student_id"/>
+                            <field name="dob"/>
+                            <field name="age"/>
+                            <field name="is_minor"/>
+                            <field name="gender"/>
+                            <field name="class_id"/>
+                            <field name="subject_id"/>
+                            <field name="admission_date"/>
+                            <field name="image" widget="image"/>
+                            <field name="course"/>
+                            <field name="username"/>
+                            <field name="unpaid_date"/>
+                            <notebook>
+                                <page string="Contact">
+                                    <group>
+                                        <field name="email"/>
+                                        <field name="phone"/>
+                                    </group>
+                                </page>
+                                <page string="Guardian Info">
+                                    <group>
+                                        <field name="guardian_name"/>
+                                        <field name="guardianphone"/>
+                                    </group>
+                                </page>
+                                <page string="Marks">
+                                    <group>
+                                        <field name="maths"/>
+                                        <field name="english"/>
+                                        <field name="gujarati"/>
+                                        <field name="total"/>
+                                    </group>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- List View -->
+        <record id="view_student_list" model="ir.ui.view">
+            <field name="name">view.student.list</field>
+            <field name="model">rest.student</field>
+            <field name="arch" type="xml">
+                <list string="Student list">
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="dob"/>
+                    <field name="age"/>
+                    <field name="is_minor"/>
+                    <field name="gender" widget="badge" decoration-success="gender=='male'" decoration-info="gender=='female'"/>
+                    <field name="class_id"/>
+                    <field name="subject_id"/>
+                    <field name="admission_date"/>
+                    <field name="image"/>
+                    <field name="course"/>
+                    <field name="username"/>
+                    <field name="unpaid_date"/>
+                    <field name="guardian_name"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record id="student_view_search" model="ir.ui.view">
+            <field name="name">student view search</field>
+            <field name="model">rest.student</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <filter name="filter_by_male" string="Male" domain="[('gender','=','male')]"/>
+                    <filter name="filter_by_female" string="Female" domain="[('gender','=','female')]"/>
+                    <filter name="other_by_gender" string="Gender" context="{'group_by':'gender'}"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Kanban View -->
+        <record id="student_kanban_view" model="ir.ui.view">
+            <field name="name">student kanban view</field>
+            <field name="model">rest.student</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="gender"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('rest.student','image',record.id.raw_value)" alt="student image"/>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <strong><field name="name"/></strong><br/>
+                                        <field name="student_id"/>
+                                    </div>
+                                    <div>
+                                        <t t-if="record.gender.raw_value == 'male'">
+                                            <span class="badge rounded-pill bg-success text-white">Male</span>
+                                        </t>
+                                        <t t-if="record.gender.raw_value == 'female'">
+                                            <span class="badge rounded-pill bg-danger text-white">Female</span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_student" model="ir.actions.act_window">
+            <field name="name">Students</field>
+            <field name="res_model">rest.student</field>
+            <field name="view_mode">list,form,kanban</field>
+        </record>
+
+    </data>
+</odoo>
