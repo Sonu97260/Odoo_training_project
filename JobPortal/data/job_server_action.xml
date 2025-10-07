@@ -7,5 +7,7 @@
         <field name="binding_model_id" ref="JobPortal.model_job_application"/>
         <field name="binding_type">action</field>
     </record>
+
+    
 </odoo>
 
