@@ -1,0 +1,25 @@
+<odoo>
+       <template id="invoice_report_inherit_aaaaaa"
+            inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@name='delivery_date']" position="after">
+            <!-- <div name="delivery_info" class="mt16 mb8">
+            <p>delivery info</p>
+                <td><span t-field="o.delivery_info"/></td>
+                <td><span t-field="o.delivery_status"/></td>
+            </div> -->
+
+            <div class="col" t-if="o.delivery_info" name="delivery_info">
+                        <strong>Delivery info</strong>
+                        <div t-field="o.delivery_info">jkkmkn</div>
+            </div>
+            <div class="col" t-if="o.delivery_status" name="delivery_status">
+                        <strong>Delivery Status</strong>
+                        <div t-field="o.delivery_status">jkkmkn</div>
+            </div>
+        </xpath>
+
+    </template>
+    
+    
+    
+</odoo>
