@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models,_
 from odoo.exceptions import UserError
 from odoo.exceptions import ValidationError
 
@@ -8,10 +8,37 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     _description = 'Sales Order'
+    _order = 'date_order desc'
+    _inherit = ['mail.thread']
+
 
     delivery_info=fields.Char(string="delivery Info")
     delivery_status=fields.Char(string="delivery Status")
 
+    
+    # # @api.model
+    # def create(self, vals):
+    #     print("=====================sequenc change///////////////")
+    #     if vals.get('name', 'New') == 'New':
+    #         seq = self.env['ir.sequence'].next_by_code('sale.order') or '/'
+    #         vals['name'] = seq.replace("S", "SO-2025-")  
+        
+    #     return super(SaleOrder, self).create(vals)
+    
+    @api.model
+    def create(self, vals):
+        record = super(SaleOrder, self).create(vals)
+        print("\n records-------------------")
+        print(">>> Custom create called with vals:", vals)
+        if vals.get('name', 'New') == 'New':
+            seq = self.env['ir.sequence'].next_by_code('sale.order') or '/'
+            vals['name'] = seq.replace("S", "SO-2025-", 1)
+        return record       
+    
+    def write(self, vals):
+        print("deliver info .........")
+        vals['delivery_info'] = "Will deliver in 2 days"
+        return super(SaleOrder, self).write(vals)
     
     def _prepare_invoice(self):
         invoice_vals = super()._prepare_invoice()
@@ -34,4 +61,15 @@ class SaleOrder(models.Model):
                 if template_id:
                     print("\n iffffffffffffffffffffff")
                     template_id.send_mail(sale.id,force_send=True)
-            
+        
+    # def create(self, vals):
+    #     vals=super()._create()
+    #     print("sequence change...............")
+    #     if vals.get('name', _('New')) == _('New'):
+    #        vals['name'] = self.env['ir.sequence'].next_by_code('sale.order.sequence')
+    #     return True
+
+
+
+     
+   
