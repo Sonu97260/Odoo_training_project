@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="job_application_form_id" model="ir.ui.view">
+        <field name="name">job.application.form.id</field>
+        <field name="model">job.application</field>
+        <field name="arch" type="xml">
+            <form string="Job Details">
+            <!-- <header>
+                <button name="send_email" string="Send Email" class="oe_highlight" type="object"/>
+            </header> -->
+            <header>
+                <field name="status" widget="statusbar" statusbar_visible="draft,submitted,shortlisted,hired"/>
+                
+                <button name="action_submitted" 
+                        type="object" 
+                        string="Submit Application" 
+                        states="draft" 
+                        class="oe_highlight"/>
+                        
+                <button name="action_shortlisted" 
+                        type="object" 
+                        string="Shortlist" 
+                        states="submitted" 
+                        class="oe_highlight"/>
+                        
+                <button name="action_hire" 
+                        type="object" 
+                        string="Hire Candidate" 
+                        states="shortlisted" 
+                        class="oe_highlight"/>
+                        
+                <button name="action_reject" 
+                        type="object" 
+                        string="Reject" 
+                        states="draft,submitted,shortlisted"/>
+            </header>
+
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                        <field name="job_id"/><field name="cv_attachment" groups="hr.group_hr_user"/>
+                        <field name="email_domain"/>
+                        <field name="status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="job_application_list_view" model="ir.ui.view">
+        <field name="name">job.application.list.view</field>
+        <field name="model">job.application</field>
+        <field name="arch" type="xml">
+            <list string="Job applications">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="cv_attachment"/>
+                <field name="email_domain"/>
+                <field name="status"/>       
+            </list>
+        </field>
+    </record>
+
+        <!-- Job application serach view-->
+    <record id="job_app_view_search" model="ir.ui.view">
+            <field name="name">job.app.view.search</field>
+            <field name="model">job.application</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <filter name="other_by_name" string="name" context="{'group_by':'name'}"/>
+                </search>
+            </field>
+    </record>
+
+    <record id="job_application_actions" model="ir.actions.act_window">
+        <field name="name">Job Application</field>
+        <field name="res_model">job.application</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+
