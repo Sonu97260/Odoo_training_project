@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <!-- Root menu -->
+        <menuitem id="job_portal_menu_root" 
+                  name="Job Portal" 
+                  sequence="10" 
+                  web_icon="job_portal,static/description/icon.png"/>
+
+        <!-- Job Positions -->
+        <menuitem id="menu_job_position" 
+                  name="Job Positions" 
+                  parent="job_portal_menu_root" 
+                  action="job_position_actions"/>
+
+        <!-- Job Applications -->
+        <menuitem id="menu_job_application" 
+                  name="Job Applications" 
+                  parent="job_portal_menu_root" 
+                  action="job_application_actions"/>
+    </data>
+</odoo>
+

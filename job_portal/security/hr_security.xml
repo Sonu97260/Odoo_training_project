@@ -1,0 +1,8 @@
+<odoo>
+    <record id="group_job_portal_hr_manager" model="res.groups">
+        <field name="name">Job Portal HR Admin</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+    </record>
+</odoo>
+
+

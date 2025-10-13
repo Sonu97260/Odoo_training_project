@@ -1,0 +1,18 @@
+<odoo>
+    <record id="job_application_approval_email_template" model="mail.template">
+        <field name="name">Job Application Approval Email</field>
+        <field name="email_from">${object.job_id.company_id.email|safe}</field>
+        <field name="subject">Your Job Application is Approved!</field>
+        <field name="model_id" ref="job_portal.model_job_application"/>
+        <field name="body_html"><![CDATA[
+            <div>
+                <p>Dear ${object.name},</p>
+                <p>We are pleased to inform you that your application for the position of <b>${object.job_id.name}</b> has been approved.</p>
+                <p>Our HR team will reach out to you with further details regarding the next steps in the recruitment process.</p>
+                <p>Thank you for your interest in joining our team!</p>
+                <p>Best regards,<br/>
+                HR Department</p>
+            </div>
+        ]]></field>
+    </record>
+</odoo>

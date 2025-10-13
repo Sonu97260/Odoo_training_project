@@ -1,0 +1,23 @@
+<odoo>
+    <!-- <record id="job_approve_app_id" model="ir.actions.server">
+        <field name="name">Send Approval Email</field>
+        <field name="model_id" ref="job_portal.model_job_application"/>
+        <field name="state">code</field>
+        <field name="code" ref="job_portal.job_application_approval_email_template"/>
+        <field name="binding_model_id" ref="job_portal.model_job_application"/>
+        <field name="binding_type">action</field>
+    </record> -->
+
+    <record id="action_job_application_approve" model="ir.actions.server">
+        <field name="name">Approve Application</field>
+        <field name="model_id" ref="job_portal.model_job_application"/>
+        <field name="binding_model_id" ref="job_portal.model_job_application"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">
+for application in records:
+    application.write({'status': 'hired'})
+    application.send_approval_email()
+        </field>
+    </record>
+</odoo>

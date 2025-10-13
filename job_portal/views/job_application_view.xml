@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="job_application_form_id" model="ir.ui.view">
+        <field name="name">job.application.form.id</field>
+        <field name="model">job.application</field>
+        <field name="arch" type="xml">
+            <form string="Job Details">
+                <header>
+                    <button name="action_shortlisted" type="object" string="Send Shortlist Email" class="oe_highlight" invisible="status == 'shortlisted'"/>
+
+                <field name="status" widget="statusbar" options="{'clickable': True}" statusbar_visible="draft,submitted,shortlisted,hired"/>
+
+                <button name="action_submitted" 
+                        type="object" 
+                        string="Submit Application" 
+                        class="oe_highlight"
+                        invisible="status != 'draft'"/>
+
+                <button name="action_shortlisted" 
+                        type="object" 
+                        string="Shortlist" 
+                        class="oe_highlight"
+                        invisible="status != 'submitted'"/>
+
+                <button name="action_hire" 
+                        type="object" 
+                        string="Hire Candidate" 
+                        class="oe_highlight"
+                        invisible="status != 'shortlisted'"/>
+
+                <button name="action_reject" 
+                        type="object" 
+                        string="Reject"
+                        invisible="not status in ['draft', 'submitted', 'shortlisted']"/>
+
+                <button name="send_approval_email" type="object" string="Send Approval Email" class="oe_highlight" invisible="status == 'approve'"/>
+                </header>
+            <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                        <field name="cv_attachment" groups="hr.group_hr_user"/>
+                        <field name="job_id" domain="[('active','=',True)]"/>
+                        <field name="email_domain"/>
+                        <field name="status"/>
+                    </group>  
+            </sheet>    
+                <chatter>
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </chatter>
+            </form>
+        </field>
+    </record>
+    <record id="job_application_list_view" model="ir.ui.view">
+        <field name="name">job.application.list.view</field>
+        <field name="model">job.application</field>
+        <field name="arch" type="xml">
+            <list string="Job applications">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="cv_attachment"/>
+                <field name="job_id"/>
+                <field name="email_domain"/>
+                <!-- <field name="status"/> -->
+            </list>
+        </field>
+    </record>
+    <!-- Job application serach view-->
+    <record id="job_app_view_search" model="ir.ui.view">
+            <field name="name">job.app.view.search</field>
+            <field name="model">job.application</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <filter name="other_by_name" string="name" context="{'group_by':'name'}"/> 
+
+                    <filter name="filter_shortlisted" string="shortlisted" domain="[('status','=','shortlisted')]"/>
+
+                    <filter name="group_by_status" string="Group by Status" context="{'group_by':'status'}"/>
+                </search>
+            </field>
+    </record>
+    <record id="job_application_actions" model="ir.actions.act_window">
+        <field name="name">Job Application</field>
+        <field name="res_model">job.application</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="job_application_list_view"/>
+        <field name="search_view_id" ref="job_app_view_search"/>
+
+        <field name="context">{'search_default_filter_shortlisted':1,'search_default_group_by_status':1}</field>
+    </record>
+
+</odoo>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
