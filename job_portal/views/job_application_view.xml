@@ -80,7 +80,7 @@
 
                     <filter name="filter_shortlisted" string="shortlisted" domain="[('status','=','shortlisted')]"/>
 
-                    <filter name="group_by_status" string="Group by Status" context="{'group_by':'status'}"/>
+                    <!-- <filter name="group_by_status" string="Group by Status" context="{'group_by':'status'}"/> -->
                 </search>
             </field>
     </record>
@@ -90,7 +90,6 @@
         <field name="view_mode">list,form</field>
         <field name="view_id" ref="job_application_list_view"/>
         <field name="search_view_id" ref="job_app_view_search"/>
-
         <field name="context">{'search_default_filter_shortlisted':1,'search_default_group_by_status':1}</field>
     </record>
 

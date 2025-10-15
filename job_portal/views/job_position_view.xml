@@ -15,7 +15,6 @@
 							<field name="department_id"/>
 							<field name="total_openings"/>
 							<field name="active"/>
-						
 						</group>
 					</sheet>	
 					<chatter>
@@ -23,11 +22,11 @@
 						<field name="activity_ids" widget="mail_activity" />
 						<field name="message_ids" widget="mail_thread" />
                		</chatter>
-				<!-- <div class="oe_chatter">
+				<div class="oe_chatter">
                         <field name="message_follower_ids" groups="base.group_user"/>
                         <field name="activity_ids"/>
                         <field name="message_ids"/>
-                </div> -->
+                </div>
 			
 				</form>
 			</field>

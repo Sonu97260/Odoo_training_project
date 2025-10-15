@@ -2,6 +2,7 @@
 from odoo import http
 from odoo.http import request
 from odoo.exceptions import ValidationError
+from psycopg2 import errors
 import base64
 
 class JobPortalController(http.Controller):
@@ -28,18 +29,19 @@ class JobPortalController(http.Controller):
             job_id = int(job_id)
         except Exception:
             return request.not_found()
-
+        
         if file and hasattr(file, 'filename') and hasattr(file, 'read'):
-            cv_attachment = base64.b64encode(file.read())
+                cv_attachment = base64.b64encode(file.read())
         vals = {
-            "name": post.get("name"),
-            "email": post.get("email"),
-            "phone": post.get("phone"),
-            "cv_attachment": cv_attachment,
-            'job_id': job_id
-        }
+                "name": post.get("name"),
+                "email": post.get("email"),
+                "phone": post.get("phone"),
+                "cv_attachment": cv_attachment,
+                'job_id': job_id,
+            }
         application = request.env['job.application'].sudo().create(vals)
         return request.redirect('/jobs/success/%d' % application.id)
+        
 
     @http.route(['/jobs/success/<int:app_id>'], type="http", auth="public", website=True)
     def job_success(self, app_id, **kwargs):

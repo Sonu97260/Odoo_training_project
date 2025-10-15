@@ -5,8 +5,9 @@
     'sequence': 5,
     'summary': 'From quotations to invoices',
     'website': 'https://www.odoo.com/app/sales',
-    'depends': ['sale', 'digest','account'],
+    'depends': ['mail thread','sale', 'digest','account'],
     'data': [
+        # 'data/ir_sequence_sale.xml',
         'data/sale_action.xml',
         'views/action_mail_template.xml',
       

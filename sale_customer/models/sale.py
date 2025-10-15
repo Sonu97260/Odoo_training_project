@@ -9,7 +9,7 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
     _description = 'Sales Order'
     _order = 'date_order desc'
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread','mail.activity.mixin']
 
 
     delivery_info=fields.Char(string="delivery Info")
@@ -44,7 +44,7 @@ class SaleOrder(models.Model):
         invoice_vals = super()._prepare_invoice()
         _logger.info("Custom SO fields: %s", invoice_vals)
         invoice_vals.update({
-            'delivery_info': self.delivery_info,
+            'delivery_info': self.deelivery_info,
             'delivery_status': self.delivery_status,
         })
         return invoice_vals
@@ -57,9 +57,7 @@ class SaleOrder(models.Model):
             print("action done.............",sale.state)
             if sale.state == 'draft':
                 print("action done.............")
-                # sale.write({'state':'sale'})
                 if template_id:
-                    print("\n iffffffffffffffffffffff")
                     template_id.send_mail(sale.id,force_send=True)
         
     # def create(self, vals):
