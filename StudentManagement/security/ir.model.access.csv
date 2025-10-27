@@ -1,7 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_rest_student,access_rest_student,model_rest_student,base.group_user,1,1,1,1
 access_student_class,access_student_class,model_student_class,base.group_user,1,1,1,1
-access_student_subject,access_student_subject,model_student_subject,base.group_user,1,1,1,1
+access_school_subject,access_school_subject,model_school_subject,base.group_user,1,1,1,1
+access_teacher_teacher,access_teacher_teacher,model_teacher_teacher,base.group_user,1,1,1,1
 access_rest_student_portal,access_rest_student_portal,model_rest_student,StudentManagement.group_student_portal,1,0,0,0
 
 

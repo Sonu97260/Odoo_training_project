@@ -9,11 +9,38 @@
             <field name="arch" type="xml">
                 <form string="Student Form">
                     <header>
-                        <button type="object" string="show rainbow" class="oe_highlight" name="show_rainbow"/>
+                        <!-- <button type="object" string="show rainbow" class="oe_highlight" name="show_rainbow"/> -->
                         <button type="object" string="send email" class="oe_highlight" name="send_email"/>
                         <button type="object" string="Show Active Count" class="oe_highlight" name="get_active_student_count"/>
-                        <button name="report_student" type="object" string="Print Report" class="oe_highlight"/>
+                        <!-- <button name="report_student" type="object" string="Print Report" class="oe_highlight"/> -->
                         <button name="unpaidfees_student_reminder" string="fees reminder" class="oe_highlight" type="object"/>
+                        <button name="send_addmission_email" string="Send Admission email" class="oe_highlight" type="object"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,apporved,cancelled"  options="{'clickable': True}" />
+                        <button name="action_confirm"
+                        type="object" 
+                        string="confirm addmission"
+                        class="oe_highlight"
+                        invisible="status != 'draft'"/>
+
+                         <button name="action_confirm" 
+                        type="object" 
+                        string="confirm addmission"
+                        class="oe_highlight"
+                        invisible="status != 'confirmed'"/>
+
+                        <button name="action_approve"
+                        type="object" 
+                        string="confirm addmission"
+                        class="oe_highlight"
+                        invisible="status != 'apporved'"/>
+
+                        <button name="action_cancel"
+                        type="object" 
+                        string="confirm addmission"
+                        class="oe_highlight"
+                        invisible="status != 'cancelled'"/>
+
                     </header>
                     <sheet>
                         <group>
@@ -30,6 +57,7 @@
                             <field name="course"/>
                             <field name="username"/>
                             <field name="unpaid_date"/>
+                          
                             <notebook>
                                 <page string="Contact">
                                     <group>
@@ -54,6 +82,11 @@
                             </notebook>
                         </group>
                     </sheet>
+                     <chatter>
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </chatter>
                 </form>
             </field>
         </record>
@@ -76,6 +109,7 @@
                     <field name="admission_date"/>
                     <field name="image"/>
                     <field name="course"/>
+                    <field name="state"/>
                     <field name="username"/>
                     <field name="unpaid_date"/>
                     <field name="guardian_name"/>

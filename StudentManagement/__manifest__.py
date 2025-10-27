@@ -16,12 +16,14 @@
 
             'views/student_views.xml',
             'views/student_register.xml',
+            'views/subject_view.xml',
+            'views/menuitem_view.xml',
             'views/student_portal_template.xml',
             'views/student_profile_view.xml',
             'views/tearchar_view.xml',
-            'views/subject_view.xml',
-
-            'views/menuitem_view.xml',
+            'views/student_addmission_temp.xml',
+           
+            # 'views/menuitem_view.xml',
 
            
             'views/cron_unpaidfees_reminder.xml',
@@ -36,7 +38,7 @@
             ],
     'installable': True,
     'application': True,
-    'images': ['static/description/icon.png'],
+    'images': ['static/description/icon.png',],
     'license': 'LGPL-3',      
 }
 

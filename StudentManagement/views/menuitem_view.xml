@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <menuitem id="menu_student_root" name="Student Management"  web_icon="StudentManagement,/static/description/icon.png"/>
-
-        <menuitem id="menu_student_menu" name="Students" parent="menu_student_root" action="action_student"/>
-
-        <menuitem id="student_subject_menu" name="Subject" parent="menu_student_root" action="subject_action_window"/>
-        
-
-    
+    <menuitem id="menu_student_root" name="Student Management"  web_icon="StudentManagement,static/description/icon.png"/>
+    <menuitem id="menu_student_menu" name="Students" parent="menu_student_root" action="action_student"/>
+    <menuitem id="subject_menu" name="Subject" parent="menu_student_root" action="subject_action_id"/>
+    <menuitem id="teacher_menu" name="teacher" parent="menu_student_root" action="teacher_action_window"/>
 </odoo>
 
 

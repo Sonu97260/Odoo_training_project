@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
- 
 <record id="email_unpaid_student_id" model="mail.template">
         <field name="name">Unpaid fees reminder </field>
         <field name="model_id" ref="StudentManagement.model_rest_student" />
@@ -10,7 +9,6 @@
         <field name="partner_to">${object.email|safe}</field>
         <field name="auto_delete" eval="True"/>
         <field name="body_html" type="html">
-        <div style="margin: 0px; padding: 0px; font-size: 13px;">
             <div>
                 Dear student,<br/><br/>
                 <p>This is a gentle reminder that your fees are still unpaid.</p>
@@ -19,7 +17,6 @@
                 <p>Your School</p>
                 <br/>Best Regards,<br/><br/>
             </div>   
-        </div>
         </field>
     </record>
 </odoo>

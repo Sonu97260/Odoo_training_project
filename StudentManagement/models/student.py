@@ -24,33 +24,40 @@ class StudentSubject(models.Model):
 class Student(models.Model):
     _name = 'rest.student'
     _description = 'Student'
+    _inherit = ["mail.thread.main.attachment", "mail.activity.mixin"]
 
     sequence=fields.Char(string="sequence")
     name = fields.Char(string='Name', required=True)
-    student_id=fields.Char(string='Roll no')
+    student_id=fields.Char(string='Roll no',unique=True)
     dob=fields.Date(string='Date of birth')
     age=fields.Integer(string='Age',compute='_compute_age',store=True)
     is_minor=fields.Boolean('Is Minor')
     gender=fields.Selection([('female','Female'),('male','Male')],string="Gender")
     class_id=fields.Many2one('student.class',string="Classes")
-    subject_id=fields.Many2many('student.subject',string='Subjects')
+    # subject_id=fields.Many2many('school.subject',string='Subjects')
     admission_date=fields.Date(string='Admission Date')
     image=fields.Image(string="Image", max_width=128, max_height=128)
     color = fields.Integer('Color Index', default=0)
     course=fields.Char(string="Course")
+    state=fields.Selection([
+    ('draft','draft'),
+    ('confirmed','confirmed'),
+    ('apporved','apporved'),
+    ('cancelled','cancelled')]
+    ,default='draft',string="State",tracking=True)
 
     username=fields.Char(string="username")
-    password=fields.Char(string="password")
-
-    
+ 
     guardian_name = fields.Char(string="Guardian Name")
     guardianphone = fields.Char(string="Guardian Phone No", size=15)
 
     teacher_id=fields.Many2one('teacher.teacher',string="teachar name")
 
     email=fields.Char(string="Email") 
+
     _sql_constraints = [
-        ('unique_email', 'unique(email)', 'Email must be unique!')
+        ('unique_email', 'unique(email)', 'Email must be unique!'),
+        ('unique_student_id', 'unique(student_id)', 'Student id must be unique!')
     ]      
     phone=fields.Char(string="Phone",size=64)
 
@@ -80,16 +87,16 @@ class Student(models.Model):
         }
         return action_ref
     
-    def show_rainbow(self):
-        return{
-            'effect':
-            {
-                'fadeout':'slow',
-                'message':'this is the rainbow effect .Congrats you have done it.',
-                'img_url':'/web/static/img/smile.svg',
-                'type':'rainbow_man',
-            }
-        }
+    # def show_rainbow(self):
+    #     return{
+    #         'effect':
+    #         {
+    #             'fadeout':'slow',
+    #             'message':'this is the rainbow effect .Congrats you have done it.',
+    #             'img_url':'/web/static/img/smile.svg',
+    #             'type':'rainbow_man',
+    #         }
+    #     }
     def get_active_student_count(self):
         count = self.search_count([('active', '=', True)])
         return {
@@ -142,14 +149,22 @@ class Student(models.Model):
                 'login': vals.get('email'),
                 'email': vals.get('email'),
                 'password': vals.get('password'),
-                'groups_id': [(6, 0, [self.env.ref('base.group_portal').id])],  # put in portal group
+                'groups_id': [(6, 0, [self.env.ref('base.group_portal').id])],
             })
             vals['user_id'] = user.id
 
         return super().create(vals_list)
     
     def write(self,vals):
-        existing_students=request.env['rest.student'].search([])
+        existing_students=self.env['rest.student'].search([])
+        if 'status' in vals:
+            # Example: log a message
+            self.env['mail.message'].create({
+                'subject': f"Status changed to {vals['status']}",
+                'body': f"Student(s) {', '.join(self.mapped('name'))} updated",
+                'model': 'rest.student',
+                'res_id': self.id,
+            })
         for student in existing_students:
             if student.student_id == vals.get('student_id'):
                 raise ValidationError('A student with this student id is exists.')
@@ -199,6 +214,27 @@ class Student(models.Model):
         else:
             self.is_minor = False
 
+
+
+    def action_confirm(self):
+        for rec in self:
+            rec.state="confirmed"
+
+    def action_approve(self):
+        for rec in self:
+            rec.state="apporved"
+
+
+    def action_cancel(self):
+        for rec in self:
+            rec.state="cancelled"
+
+    def send_addmission_email(self):
+        template=self.env.ref('StudentManagement.email_student_addmission_id')
+        for student in self:
+            if student.email:
+                template.send_mail(student.id)
+                print("admission email sent...............................")
 
 
 
