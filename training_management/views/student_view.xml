@@ -64,7 +64,7 @@
                 <search>
                     <field name="name"/>
 
-					<filter name="filter_by_course" string="course" domain="[('course','=','Mscit')]"/>
+					<filter name="filter_by_course" string="course" domain="[('course','!=',False)]"/>
                 </search>
             </field>
         </record>
