@@ -1,0 +1,6 @@
+<odoo>
+    <menuitem id="menu_training_management_root" name="Training" web_icon="training_management,static/description/icon.png"/>
+    <menuitem id="menu_training_management" name="Management" parent="menu_training_management_root"/>
+        <menuitem id="menu_training_student" name="Students" parent="menu_training_management" action="student_actions_id"/>
+        <menuitem id="menu_training_teacher" name="Teachers" parent="menu_training_management" action="teacher_actions_id"/>
+</odoo>
