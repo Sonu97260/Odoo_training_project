@@ -1,0 +1,29 @@
+ <!-- Create a server action that triggers automatically when a sale order is confirmed, and sends an email using the template  -->
+ <odoo>
+    <!-- <data>
+        <record id="action_automated_quotation_approval" model="ir.actions.server">
+        <field name="name">Automated Quotation Approval</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code" ref="salemanagement.order_apporved_send_email_iddd"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">action</field>
+    </record>
+
+     -->
+      <record id="send_email_apporved" model="ir.actions.server">
+        <field name="name">Approve order</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">
+for order in records:
+    order.write({'state': 'sale'})
+    order.send_email_confirmed()
+        </field>
+    </record>
+
+
+    
+</odoo>

@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <template id="sale_order_template_pdf">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <h2>Order Summary</h2>
+                        <p><b>Order Number:</b> <t t-esc="o.name"/></p>
+                        <p><b>Total Amount:</b> <t t-esc="o.amount_total"/></p>
+                        <p><b>Customer:</b> <t t-esc="o.partner_id.name"/></p>
+                    </div>
+                </t>
+            </t>
+        </template>
+        <record id="sale_order_report_pdf" model="ir.actions.report">
+            <field name="name">sale report </field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">salemanagement.sale_order_template_pdf</field>
+            <field name="report_file">salemanagement.sale_order_template_pdf</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- <record id="sale_order_report_xls" model="ir.actions.report">
+                <field name="name">Sale Order XLS Report</field>
+                <field name="model">sale.order</field>
+                <field name="report_type">xlsx</field>
+                <field name="report_name">salemanagement.sale_order_xls_report</field>
+                <field name="report_file">salemanagement.sale_order_xls_report</field>
+                <field name="binding_model_id" ref="sale.model_sale_order"/>
+                <field name="binding_type">report</field>
+        </record>  -->
+        
+	</data>
+</odoo>
