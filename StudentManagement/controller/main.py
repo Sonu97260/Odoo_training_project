@@ -55,11 +55,10 @@ class Mycontroller(http.Controller):
                 'name': name,
                 'login': username,  # Use username as login
                 'email': email,
-                'password': password,
+                # 'password': password,
                 'groups_id': [(6, 0, [portal_group.id])],  # Portal user group
             })
 
-            # Create student Profile  record
             student = request.env['rest.student'].sudo().create({
                 'name': name,
                 'email': email,
@@ -67,7 +66,7 @@ class Mycontroller(http.Controller):
                 'gender': gender,
                 'course': course,
                 'username': username,
-                'password': password,
+                # 'password': password,
                 'user_id': user.id,
             })
 

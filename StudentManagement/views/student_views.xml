@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
         <!-- Form View -->
         <record id="view_student_form_id" model="ir.ui.view">
             <field name="name">view.student.form.id</field>
@@ -17,30 +16,23 @@
                         <button name="send_addmission_email" string="Send Admission email" class="oe_highlight" type="object"/>
 
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,apporved,cancelled"  options="{'clickable': True}" />
-                        <button name="action_confirm"
+                        <!-- <button name="action_confirm"
                         type="object" 
-                        string="confirm addmission"
+                        string="Confirm"
                         class="oe_highlight"
-                        invisible="status != 'draft'"/>
+                        attrs="{'invisible': [('state', '!=', 'draft')]}"/>
 
-                         <button name="action_confirm" 
+                        <button name="action_approve" 
                         type="object" 
-                        string="confirm addmission"
+                        string="Approve"
                         class="oe_highlight"
-                        invisible="status != 'confirmed'"/>
-
-                        <button name="action_approve"
-                        type="object" 
-                        string="confirm addmission"
-                        class="oe_highlight"
-                        invisible="status != 'apporved'"/>
+                        attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>
 
                         <button name="action_cancel"
                         type="object" 
-                        string="confirm addmission"
-                        class="oe_highlight"
-                        invisible="status != 'cancelled'"/>
-
+                        string="Cancel"
+                        class="btn-danger"
+                        attrs="{'invisible': [('state', 'in', ['cancelled'])]}"/> -->
                     </header>
                     <sheet>
                         <group>

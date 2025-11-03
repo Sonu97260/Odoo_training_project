@@ -24,11 +24,11 @@ class StudentSubject(models.Model):
 class Student(models.Model):
     _name = 'rest.student'
     _description = 'Student'
-    _inherit = ["mail.thread.main.attachment", "mail.activity.mixin"]
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     sequence=fields.Char(string="sequence")
     name = fields.Char(string='Name', required=True)
-    student_id=fields.Char(string='Roll no',unique=True)
+    student_id=fields.Char(string='Roll no')
     dob=fields.Date(string='Date of birth')
     age=fields.Integer(string='Age',compute='_compute_age',store=True)
     is_minor=fields.Boolean('Is Minor')
@@ -235,7 +235,14 @@ class Student(models.Model):
             if student.email:
                 template.send_mail(student.id)
                 print("admission email sent...............................")
-
+   
+    @api.model
+    def get_dashboard_data(self):
+        total = self.search_count([])
+        print("total students...................",total)
+        return {
+            'total': total,
+        }
 
 
             

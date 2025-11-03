@@ -8,7 +8,6 @@
                             <p>
                                 <t t-if="s.image" t-esc="s.image"
                                 t-options="{'widget': 'image', 'style':'width:150px;height:150px;align:right;'}"/>
-
                             </p>
                             <style>
                                 .student {
