@@ -243,7 +243,23 @@ class Student(models.Model):
         return {
             'total': total,
         }
+    
+   
+    @api.model
+    def get_marks_chart_data(self):
+        subjects = self.env['rest.student'].search([])
+        chart_data = []
 
+        for subject in subjects:
+            students = self.search([('subject_id', '=', subject.id)])
+            total_marks = sum(students.mapped('marks'))
+            count = len(students)
+            avg = total_marks / count if count else 0
+            chart_data.append({
+                "subject": subject.name,
+                "average_marks": avg,
+            })
+        return chart_data
 
             
 

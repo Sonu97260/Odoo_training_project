@@ -13,8 +13,7 @@
                             <field name="email"/>
                             <field name="gender"/>
                             <field name="address"/>
-                            <!-- <field name="category_id"/>
-                            <field name="user_id"/> -->
+                      
                         </group>
                         <notebook>
                             <page string="Students">
@@ -29,12 +28,13 @@
             <field name="name">teacher list view</field>
             <field name="model">teacher.teacher</field>
             <field name="arch" type="xml">
-                <list>
+                <list string="Teachar List">
                     <field name="name"/>
                     <field name="contact_num"/>
                     <field name="email"/>
                     <field name="gender"/>
                     <field name="address"/>
+                  
                 </list>
             </field>
         </record>

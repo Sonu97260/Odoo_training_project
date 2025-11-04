@@ -11,4 +11,13 @@
     <field name="prefix">A</field>
     <field name="padding">1</field>
   </record>
+  
+    <record id="teacher_sequnce" model="ir.sequence">
+    <field name="name">teacher Sequence</field>
+    <field name="code">teacher.custom.sequence</field>
+    <field name="prefix">td</field>
+    <field name="padding">1</field>
+  </record>
+
+
 </odoo>

@@ -19,7 +19,7 @@ class Teachar(models.Model):
     date_request=fields.Date(string="Date")
     # category_id=fields.Many2one('hr.department',string='Category')	
     count_student=fields.Integer(string="Count Student", compute="_count_student")
-    # user_id=fields.Many2one('res.users',string="user")
+    sequence = fields.Char(string='Sequence', readonly=True)
 
 
     @api.depends('count_student')
@@ -31,14 +31,22 @@ class Teachar(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            # Example: validate unique teacher_id
-            if self.env['rest.teachar'].search([('teacher_id', '=', vals.get('teacher_id'))], limit=1):
-                raise ValidationError('A teacher with this ID already exists.')
-
-            # Example: assign sequence if needed
+            teacher_id = vals.get('teacher_id')
+            if teacher_id:
+                existing = self.env['teacher.teacher'].search([('teacher_id', '=', teacher_id)], limit=1)
+                if existing:
+                    raise ValidationError('A teacher with this ID already exists.')
             vals['sequence'] = self.env["ir.sequence"].next_by_code('teacher.custom.sequence')
+        return super().create(vals_list)
+    
 
-        return super().create(vals_list)   
+    @api.model
+    def get_teacher_count(self):
+        teacher_model = self.env['teacher.teacher']
+        total_teachers = teacher_model.search_count([])
+        return {
+            'total_teachers': total_teachers,
+        }
 
 
 
