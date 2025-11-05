@@ -37,7 +37,6 @@
     'web.assets_backend': [
         'StudentManagement/static/src/js/dashboard.js',
         'StudentManagement/static/src/xml/dashboard.xml',
-       
     ],
 },
 

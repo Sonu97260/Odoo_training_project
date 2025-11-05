@@ -8,12 +8,45 @@ export class StudentDashboard extends Component {
     
     setup() {
         this.orm = useService("orm");
-        this.state = useState({ total: 0 });
-     
-     
+        this.state = useState({
+            students:[],
+            student_cancel:[],
+            searchView: "",
+            total: 0,
+            total_teachers: 0,
+            total_subject: 0, 
+        });
         onMounted(async () => {
-                // const chartData = await this.orm.call("rest.student", "get_marks_chart_data", []);
-                // this.state.chartData = chartData;
+
+                const student_data= await this.orm.searchRead('rest.student',[["state","=","confirmed"]],
+                    ["name","age","email","gender","state"]
+                );
+                console.log("Fetched students://///////", student_data);
+
+                this.state.students = student_data.map((stu) => ({
+                id: stu.id,
+                name: stu.name,
+                age: stu.age,
+                email: stu.email ,
+                gender: stu.gender,
+                state: stu.state,
+            }));
+            this.state.total=student_data.length;
+
+            const cancel_student=await this.orm.searchRead('rest.student',[["state","=","cancelled"]],
+                ["name","age","email","gender","state"],
+            );     
+            console.log("cancel students://///////", cancel_student);
+
+            this.state.student_cancel=cancel_student.map((stud) =>({
+                id: stud.id,
+                name: stud.name,
+                age: stud.age,
+                email: stud.email ,
+                gender: stud.gender,
+                state: stud.state,  
+            }));
+            this.state.total=student_data.length;
 
                 const data = await this.orm.call("rest.student", "get_dashboard_data", []);
                 this.state.total = data.total || 0;
@@ -25,17 +58,6 @@ export class StudentDashboard extends Component {
                 this.state.total_subjects = data_subject.total_subjects || 0;
         });
      }
-    //    async openStudents() {
 
-    //         const actionData = await this.orm.call(
-    //             "ir.actions.actions",
-    //             "get_dashboard_data",
-    //             ["StudentManagement.get_dashboard_data"]
-    //         );
-
-    //         if (actionData && actionData.action) {
-    //             this.action.doAction(actionData.action);
-    //         }
-    //     }
     }
 registry.category("actions").add("StudentDashboard", StudentDashboard);

@@ -127,13 +127,12 @@ class Student(models.Model):
     #         if record.age <=18:
     #             raise ValidationError("the age must be 18 above.")
             
-    @api.constrains('email')       
-    def val_email(self):
-        if self.email:
-           match = re.match(r'^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', self.email)
-
-        if match==None:
-            raise ValidationError("please enter the valid email id")          
+    # @api.constrains('email')       
+    # def val_email(self):
+    #     if self.email:
+    #        match = re.match(r'^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', self.email)
+        # if match==None:
+        #     raise ValidationError("please enter the valid email id")          
 
     @api.model_create_multi
     def create(self, vals_list):
