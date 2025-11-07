@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_formdd" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.crm</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="5"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='crm_iap_mine_settings']" position="after">
+                    <setting string="lead number and tranfer" help="  Lead No &amp; Lead transfer with Popup">
+                        <field name="lead_num"/>
+                            <div class="mt8" invisible="not lead_num">
+                               <strong> Prefix:  <field name="prefix"  placeholder="LEAD" /></strong><br></br>
+                               <strong> Start number  :<field name="start_num"  placeholder="00001"/></strong>
+                            </div>
+                    </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="crm_case_tree_view_oppor" model="ir.ui.view">
+            <field name="name">crm.lead.list.opportunity</field>
+            <field name="model">crm.lead</field>
+            <field name="priority">1</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='crm.action_lead_mass_mail']" position="after">
+                    <button
+                        name="action_generate_lead_number"
+                        type="object"
+                        string="Transfer Lead"
+                        class="btn-primary"/>
+                </xpath>
+            </field>  
+    </record>      
+</odoo> 
+    
