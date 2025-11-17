@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="res_config_settings_view_form_id" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.crm</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="5"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='crm_iap_mine_settings']" position="after">
+                    <setting string="lead number and tranfer">
+                        <field name="lead_num" />
+                            <div class="mt8" invisible="lead_num != True">
+                               <strong> Prefix:  <field name="prefix"  placeholder="LEAD" invisible="lead_num != True"/></strong><br></br>
+                               <strong> Start number  :<field name="start_num"  placeholder="00001" invisible="lead_num == False"/></strong>
+                            </div>
+                    </setting>
+            </xpath>
+        </field>
+    </record>
+
     <record id="crm_lead_view_form" model="ir.ui.view">
                 <field name="name">crm.lead.form</field>
                 <field name="model">crm.lead</field>
@@ -8,47 +26,40 @@
                     <xpath expr="//field[@name='partner_id']" position="before">
                         <group>
                             <group>
-                                <field name="lead_num"
-                                invisible= "[('lead_num', '=', False)]}"
-                                readonly="1"/>
-
+                                <field name="lead_num" readonly="1"/>
                             </group>
                             <group>
                                 <field name="partner_id"/>
                             </group>
                         </group>
-
                     </xpath>
                 </field>
     </record> 
-    <record id="crm_case_tree_view_opporuiuhgh" model="ir.ui.view">
+    <record id="crm_case_tree_view_oppor_id" model="ir.ui.view">
+            <field name="name">crm.lead.list.opportunity</field>
+            <field name="model">crm.lead</field>
+            <field name="priority">1</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list/header/button[@name='%(crm.action_lead_mass_mail)d']" position="after">
+                    <button name="action_open_transfer_wizard"
+                    type="object" 
+                    string="Transfer Lead"/>
+                </xpath>
+            </field>
+    </record>
+    <!-- <record id="crm_case_tree_view_opporu_id" model="ir.ui.view">
                 <field name="name">crm.lead.list.opportunity</field>
                 <field name="model">crm.lead</field>
                 <field name="priority">1</field>
                 <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
-                <field name="arch" type="xml">   
-                    <!-- Set custom JS class for the list view -->
-                    <xpath expr="//list" position="attributes">
-                        <attribute name="js_class">crm_lead_list_context</attribute>
-                    </xpath>    
-
-                    <xpath expr="//list" position="inside">
-                        <field name="show_button" column_invisible="1"/>
-                    </xpath>
-
+                <field name="arch" type="xml">       
                     <xpath expr="//list/header/button[@name='%(crm.action_lead_mass_mail)d']" position="after">
-                        <button type="button"
-                        class="btn btn-primary"
-                        style="margin-left: 8px;"
-                        t-if="state.showTransferButton"
-                        t-on-click="onTransferLeadClick">
-                        Transfer Lead
-                        </button>    
-                    </xpath>
-                    <xpath expr="//list" position="inside">
-                            <field name="show_button" invisible="1"/>
+                           <button name="action_open_transfer_wizard" 
+                            type="object" 
+                            string="Transfer Lead"/> 
                     </xpath>
                 </field>  
-        </record> 
+    </record>  -->
 </odoo> 
     

@@ -8,19 +8,9 @@
     'depends': ['crm'],
     'data': [
         'security/ir.model.access.csv',
-
-        'views/res_settings_view.xml',
         'views/crm_lead_view.xml',
-
-        # 'views/wizard_view.xml',
-        
+        'wizard/wizard_view.xml',
         ],
-    'assets': {
-    'web.assets_backend': [
-        'static/src/js/crm.js',
-        
-    ],
-},
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
