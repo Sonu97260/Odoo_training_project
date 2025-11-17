@@ -9,11 +9,13 @@
             <xpath expr="//setting[@id='crm_iap_mine_settings']" position="after">
                     <setting string="lead number and tranfer">
                         <field name="lead_num" />
+                         <p>Lead No And Lead Transfer with Popup</p><br></br>
                             <div class="mt8" invisible="lead_num != True">
-                               <strong> Prefix:  <field name="prefix"  placeholder="LEAD" invisible="lead_num != True"/></strong><br></br>
-                               <strong> Start number  :<field name="start_num"  placeholder="00001" invisible="lead_num == False"/></strong>
+                                <strong> Prefix:  <field name="prefix"  placeholder="LEAD" invisible="lead_num != True"/></strong><br></br>
+                                <strong> Start number  :<field name="start_num"  placeholder="00001" invisible="lead_num == False"/></strong>
                             </div>
                     </setting>
+                    
             </xpath>
         </field>
     </record>

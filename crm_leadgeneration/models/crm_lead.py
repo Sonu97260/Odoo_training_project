@@ -10,7 +10,7 @@ class CrmLead(models.Model):
     _inherit = 'crm.lead'
     _description = 'crm lead'
 
-    lead_num = fields.Char(string="Lead Number", readonly=True, copy=False)
+    lead_num = fields.Char(string="Lead Number", readonly=True,copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -27,7 +27,7 @@ class CrmLead(models.Model):
 
             if lead_num:
 
-                sequence = f"{prefix}{current_num_str}"
+                sequence = f"{prefix}/{current_num_str}"
 
                 vals["lead_num"] = sequence
                 vals["name"] = sequence

@@ -3,20 +3,20 @@ from odoo import fields, models, api
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-
     lead_num = fields.Boolean(
         "Enable Lead Number",
-        config_parameter="crm_leadgeneration.lead_num"
+        config_parameter="crm_leadgeneration.lead_num",
+        default=False,    
     )
     prefix = fields.Char(
         "Prefix",
         default="LEAD",
-        config_parameter="crm_leadgeneration.prefix"
+        config_parameter="crm_leadgeneration.prefix",required=True
     )
     start_num = fields.Char(
         "Start Number",
         default=1,
-        config_parameter="crm_leadgeneration.start_num"
+        config_parameter="crm_leadgeneration.start_num",required=True
     )
     current_num= fields.Char(
         "Current Number",
@@ -25,7 +25,7 @@ class ResConfigSettings(models.TransientModel):
     )
     digit_length = fields.Integer(
     "Digit Length",
-    default=5,                 # FIXED
+    default=5,               
     config_parameter="crm_leadgeneration.digit_length",
     )
 
@@ -35,7 +35,8 @@ class ResConfigSettings(models.TransientModel):
         config = self.env['ir.config_parameter'].sudo()
 
         res.update(
-            lead_num=config.get_param("crm_leadgeneration.lead_num") == "True",
+            # lead_num=config.get_param("crm_leadgeneration.lead_num") == "True",
+            lead_num=config.get_param("crm_leadgeneration.lead_num", "False") == "True",
             prefix=config.get_param("crm_leadgeneration.prefix", "LEAD"),
             start_num=config.get_param("crm_leadgeneration.start_num", "1"),
             current_num=config.get_param("crm_leadgeneration.current_num", "1"),
@@ -50,14 +51,14 @@ class ResConfigSettings(models.TransientModel):
         config.set_param("crm_leadgeneration.lead_num", self.lead_num)
         config.set_param("crm_leadgeneration.prefix", self.prefix)
 
-        # EXACT start number with leading zeros preserved
+    
         raw_start = str(self.start_num)
         config.set_param("crm_leadgeneration.start_num", raw_start)
 
-        # Reset current number to EXACT start number
+        
         config.set_param("crm_leadgeneration.current_num", raw_start)
 
-        # Save digit length for increment formatting
+        
         config.set_param("crm_leadgeneration.digit_length", self.digit_length)
 
 
