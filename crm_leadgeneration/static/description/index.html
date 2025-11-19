@@ -255,24 +255,6 @@
    </section>
    <section class="sales-purchase__main-tabs mt-5">
       <div class="container">
-         <!-- Tabs Navigation -->
-<!--                    <ul class="nav nav-tabs justify-content-center bg-transparent" id="nav-tab" role="tablist"-->
-<!--                        style="gap: 10px; margin-bottom: 50px;">-->
-<!--                        <li class="nav-item" role="presentation">-->
-<!--                           <a class="nav-link custom-main__tab active" id="pills-home-tab-a" data-bs-toggle="pill"-->
-<!--                              data-bs-target="#SalesTab" type="button" role="tab" aria-controls="pills-home"-->
-<!--                              aria-selected="true" style="display: inline-block; padding: 10px 40px; border: 1px solid #d0d3db; border-bottom: none; border-radius: 8px 8px 0 0; color: #293134; font-family: Montserrat, Arial, sans-serif; font-weight: 600; font-size: 1.1rem; box-shadow: 0 2px 8px rgba(215,10,83,0.04);">-->
-<!--                              Sales-->
-<!--                           </a>-->
-<!--                        </li>-->
-<!--                        <li class="nav-item" role="presentation">-->
-<!--                           <a class="nav-link custom-main__tab" id="pills-contact-tab-b" data-bs-toggle="pill"-->
-<!--                              data-bs-target="#PurchaseTab" type="button" role="tab" aria-controls="pills-contact"-->
-<!--                              aria-selected="false" style="display: inline-block; padding: 10px 40px; border: 1px solid #d0d3db; border-bottom: none; border-radius: 8px 8px 0 0; color: #293134; font-family: Montserrat, Arial, sans-serif; font-weight: 600; font-size: 1.1rem; box-shadow: 0 2px 8px rgba(215,10,83,0.04);">-->
-<!--                              Purchase-->
-<!--                           </a>-->
-<!--                        </li>-->
-<!--                     </ul>-->
 
          <!-- Tabs Content -->
          <div class="tab-content" id="myTabContent">
@@ -282,10 +264,14 @@
                <section id="sh_module_desc" class="sh_module_desc">
                   <div class="container">
                      <div class="sh_center text-center">
-                        <h4 style="font-size: 31px;font-weight: 600;color: #293134;margin-bottom: 10px;">Product Low Stock Notification</h4>
+                        <h4 style="font-size: 31px;font-weight: 600;color: #293134;margin-bottom: 10px;">Overview: </h4>
                            <div style="display: block; height: 2px; width: 50%; max-width: 100%; margin: 20px auto 50px auto; background: linear-gradient(to right, rgba(46, 204, 113, 0) 0%, #d70a53 50%, rgba(46, 204, 113, 0) 100%); border-radius: 4px;"></div>
-                        <p style="color: #616060;font-size: 19px;margin: 0;letter-spacing: 1px;margin-top: 12px;">The <strong>Low Stock Notification Module</strong> is designed to alert users when product stock levels fall below defined minimum quantities.
-                        It supports <strong>global, individual, and reorder rule-based configurations</strong>, ensuring timely stock replenishment and uninterrupted business operations. </p>
+                        <p style="color: #616060;font-size: 19px;margin: 0;letter-spacing: 1px;margin-top: 12px;">
+                            This functionality allows users to configure a Prefix and Start Number for leads, which will automatically generate lead numbers in the format <strong>LEAD0001</strong>.
+                            A Transfer Lead button appears in <strong>CRM → Sales → My Pipeline</strong> once the “Lead Number & Transfer” configuration is enabled. 
+                            Clicking the button opens a pop-up showing the Assigned field  and an Assign To input field . 
+                            Users can then reassign the lead using the Confirm button or cancel the operation.
+                        </p>
                      </div>
                   </div>
                </section>
@@ -296,75 +282,34 @@
                      <div class="sh_center text-center mb-5">
                         <h4 style="font-size: 28px;font-weight: 600;color: #293134;margin-bottom: 10px;">Features</h4>
                         <!-- <hr style="width: 100px;border-width: 2px;border-color: #293134;" /> -->
-                        <img src="https://res.cloudinary.com/dghplu26l/image/upload/v1748935067/line_bg8rqo.webp"
-                           alt="heading" />
+                        <!-- <img src="https://res.cloudinary.com/dghplu26l/image/upload/v1748935067/line_bg8rqo.webp"
+                           alt="heading" /> -->
                      </div>
                      <div id="Feature" class="tab-pane active">
                         <div class="row g-3">
                            <div class="col-md-6">
                               <div class="border rounded p-3 h-100 d-flex align-items-center">
-                                 <img src="./features/f1.png" style="padding-right: 20px;" alt="Features">
+                                 <!-- <img src="./features/f1.png" style="padding-right: 20px;" alt="Features"> -->
                                  <span style="font-size: 16px; color: #212121; font-weight: 600; letter-spacing: 1px;">
-                                 <strong >1. Automatic Low-Stock Alerts</strong><br/> The system automatically alerts users through email when product quantities fall below the defined minimum stock level.
+                                 <strong>1. Generate the Lead Number by Prefix</strong><br/>
+                                    Lead Number Configuration – Quick Steps
+                                    Go to CRM → Configuration → Lead Generation.
+                                    Enter Prefix and Start Number (both required).
+                                    Click Save.
+                                    After saving, the Prefix and Start Number fields will appear automatically in the Lead form.
                                  </span>
                               </div>
                            </div>
                            <div class="col-md-6">
                               <div class="border rounded p-3 h-100 d-flex align-items-center">
-                                 <img src="./features/f2.png" style="padding-right: 20px;" alt="Features">
+                                 <!-- <img src="./features/f2.png" style="padding-right: 20px;" alt="Features"> -->
                                  <span style="font-size: 16px; color: #212121; font-weight: 600; letter-spacing: 1px;">
-                                 <strong>2. Email Notification to Authorized Users</strong><br/> Only the designated or configured users receive the low-stock alerts, including a detailed report as an attachment. 
+                                  <strong>2.Change Salesperson in Bulk</strong> 
+                                    Users can update or reassign the salesperson for multiple leads at once using the bulk action feature.
                                  </span>
                               </div>
                            </div>
-                           <div class="col-md-6">
-                              <div class="border rounded p-3 h-100 d-flex align-items-center">
-                                 <img src="./features/f3.png" style="padding-right: 20px;" alt="Features">
-                                 <span style="font-size: 16px; color: #212121; font-weight: 600; letter-spacing: 1px;">
-                               <strong>3. Minimum Quantity Setup per Product</strong><br/> Users can define a specific minimum stock threshold for each product to trigger restock notifications.
-                                 </span>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="border rounded p-3 h-100 d-flex align-items-center">
-                                 <img src="./features/f4.png" style="padding-right: 20px;" alt="Features">
-                                 <span style="font-size: 16px; color: #212121; font-weight: 600; letter-spacing: 1px;">
-                                  <strong>4. Variant-Level Minimum Quantity Setupt</strong><br/> Minimum quantity limits can also be configured at the product-variant level to track individual item availability.
-                                 </span>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="border rounded p-3 h-100 d-flex align-items-center">
-                                 <img src="./features/f5.png" style="padding-right: 20px;" alt="Features">
-                                 <span style="font-size: 16px; color: #212121; font-weight: 600; letter-spacing: 1px;">
-                                  <strong>5.Flexible Notification Options</strong><br/> Alerts can be configured globally for all products, individually per product, or dynamically based on existing reordering rules.
-                                 </span>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="border rounded p-3 h-100 d-flex align-items-center">
-                                 <img src="./features/f6.png" style="padding-right: 20px;" alt="Features">
-                                 <span style="font-size: 16px; color: #212121; font-weight: 600; letter-spacing: 1px;">
-                                 <strong>6. Stock Basis Selection</strong><br/> Notifications can be triggered using either On-Hand stock levels or Forecasted Quantities, depending on the user’s preference.
-                                 </span>
-                              </div>
-                           </div>
-                            <!-- <div class="col-md-6">
-                              <div class="border rounded p-3 h-100 d-flex align-items-center">
-                                 <img src="./features/f6.png" style="padding-right: 20px;" alt="Sales Features">
-                                 <span style="font-size: 16px; color: #212121; font-weight: 600; letter-spacing: 1px;">
-                                  
-                                 </span>
-                              </div>
-                           </div>
-                            <div class="col-md-6">
-                              <div class="border rounded p-3 h-100 d-flex align-items-center">
-                                 <img src="./features/f6.png" style="padding-right: 20px;" alt="Sales Features">
-                                 <span style="font-size: 16px; color: #212121; font-weight: 600; letter-spacing: 1px;">
-                                  
-                                 </span>
-                              </div>
-                           </div> -->
+
                         </div>
                      </div>
                   </div>
@@ -405,152 +350,77 @@
                            <section id="sh_configuration">
                               <div class="container">
                                  <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                     <strong style="font-weight:700;">Company Configuration</strong> <br>
-                                    Enable low stock alerts under company settings.
+                                     <strong style="font-weight:700;">1.Create a configuration
+                                    </strong> <br>
+                            In CRM, open Configuration, then go to Lead Generation and select Lead Number & Transfer. Set the desired Prefix and Start Number. After enabling, these fields will appear in the Lead form.
                                  </p>
                                  <div class="col-md-12">
-                                    <img class="img-responsive rounded shadow" src="screenshots/My-Company-Chicago.png?v=sgf"
+                                    <img class="img-responsive rounded shadow" src="./screenshot/configuration.png"
                                        style="width: 100%;" />
                                  </div>
                                  <br />
                                  <br />
                                  <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                   <strong style="font-weight:700;">User Notification Preference </strong> <br>
-                                    Users can activate “Notify User” in preferences to receive alerts.
+                                    <strong style="font-weight:700;"> 2.To check, go to CRM → Sales → My Pipeline → Leads.
+                                    </strong> <br>
+                                   To use the transfer feature, open CRM, then Sales, and go to My Pipeline.
+                                    The Transfer Lead button will appear automatically after the Lead Number & Transfer configuration is enabled.
+
                                  </p>
                                  <div class="col-md-12">
-                                    <img class="img-responsive rounded shadow" src="screenshots/user_Marc-Demo.png?v=sgf"
+                                    <img class="img-responsive rounded shadow" src="./screenshot/generated_leadnum.png"
                                        style="width: 100%;" />
                                  </div>
                                  <br />
                                  <br />
                                  <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                     <strong style="font-weight:700;">Global Product Alerts</strong> 
-                                     <br>Set global minimum stock levels to monitor all products at once.
+                                     <strong style="font-weight:700;">3.Create Transfer Lead Button</strong> 
+                                     <br>Open CRM, then Sales, and go to My Pipeline. After enabling the Lead Number & Transfer setting, the Transfer Lead button will appear automatically.
+
                                  <div class="col-md-12">
-                                    <img class="img-responsive rounded shadow" src="screenshots/Settings-global.png?v=sgf"
+                                    <img class="img-responsive rounded shadow" src="./screenshot/transfer_leadbutton.png"
                                        style="width: 100%;" />
                                  </div>
                                  <br />
                                  <br />
                                  <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                     <strong style="font-weight:700;">Automated Scheduling </strong> <br>Configure cron jobs for automatic email notifications.
-                                 </p>
+                                     <strong style="font-weight:700;"> 4.Create a Popup</strong> 
+                                     <br>Open CRM, then Sales, and go to My Pipeline. Click Transfer Lead to open a pop-up showing the current Assigned user, an Assign To dropdown, and Confirm/Cancel buttons.
+                                        
+
                                  <div class="col-md-12">
-                                    <img class="img-responsive rounded shadow" src="screenshots/Low-Stock-Notification-Email.png?v=sgf"
+                                    <img class="img-responsive rounded shadow" src="./screenshot/wizard_popup.png"
                                        style="width: 100%;" />
                                  </div>
-                                 <br />
-                                 <br />
+                                 <br /> 
+                                 <br/>
                                  <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                    <strong style="font-weight:700;">Email Alerts</strong>
-                                     <br>Receive instant email notifications when products fall below minimum stock.
-                                 </p>
+                                     <strong style="font-weight:700;"> 5.Saleperson automatically Change</strong> 
+                                     <br>After clicking Confirm, the Salesperson is updated automatically. 
+                                     You can check this in CRM, then Sales, under My Pipeline. 
+                                     For example, the Salesperson may change from “Mitchel Admin” to “Mark Demo.”
                                  <div class="col-md-12">
-                                    <img class="img-responsive rounded shadow" src="screenshots/Low-Stock-global_email.png?v=sgf"
+                                    <img class="img-responsive rounded shadow" src="./screenshot/change_saleperson.png"
                                        style="width: 100%;" />
                                  </div>
-                                 <br />
-                                 <br />
-                                 <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                    <strong style="font-weight:700;">Report Attachments</strong>  
-                                    <br>Low stock reports are auto-attached to emails for quick review.
-                                 </p>
-                                 <div class="col-md-12">
-                                    <img class="img-responsive rounded shadow w-100" src="screenshots/global report.png?v=sgf"
-                                       style="width: 100%;" />
-                                 </div>
-                                 <br />
-                                 <br />
-                                 <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                   <strong style="font-weight:700;">Individual Product Alerts</strong><br> 
-                                    Configure minimum stock levels on a per-product basis for targeted monitoring.
-                                   </p>
-                                 </p>
-                                 <div class="col-md-12">
-                                    <img class="img-responsive rounded shadow" src="screenshots/individual setting.png?v=sgf"
-                                       style="width: 100%;" />
-                                 </div>
-                                 <br />
-                                 <br />
-                                 <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                    <strong style="font-weight:700;">Product-Level Setup</strong><br>
-                                   Define minimum quantity limits individually per product.
-                                 </p>
-                                 <div class="col-md-12">
-                                    <img class="img-responsive rounded shadow" src="screenshots/individual_min_qunatity.png?v=sgf"
-                                       style="width: 100%;" />
-                                 </div>
-                                 <br />
-                                 <br />
-                                  <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                   <strong style="font-weight:700;">Email Alerts</strong>
-                                     <br>Receive instant email notifications when products fall below minimum stock.
-                                 </p>
-                                 <div class="col-md-12">
-                                    <img class="img-responsive rounded shadow" src="screenshots/individual_email_body.png?v=sgf"
-                                       style="width: 100%;" />
-                                 </div>
-                                 <br />
-                                 <br />
-                                  <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                    <strong style="font-weight:700;">Report Attachments</strong>  
-                                    <br>Low stock reports are auto-attached to emails for quick review.
-                                 </p>
-                                 <div class="col-md-12">
-                                    <img class="img-responsive rounded shadow" src="screenshots/individual email report.png?v=sgf"
-                                       style="width: 100%;" />
-                                 </div>
-                                 <br />
-                                 <br />
-                                  <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                    <strong style="font-weight:700;">Reorder Rules Notification</strong> <br>
-                                    Get alerts based on product reordering rules and thresholds.
-                                 </p>
-                                 <div class="col-md-12">
-                                    <img class="img-responsive rounded shadow" src="screenshots/reorder_setting.png?v=sgf"
-                                       style="width: 100%;" />
-                                 </div>
-                                     <br />
-                                     <br />
-                                  <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                      <strong style="font-weight:700;">Replenishment Management</strong><br>
-                                    Create reordering rules to maintain healthy stock levels.
-                                 </p>
-                                  <div class="col-md-12">
-                                      <img class="img-responsive rounded shadow" src="screenshots/Replenishment-configuration.png?v=sgf"
-                                           style="width: 100%;"/>
-                                  </div>
-                                  <br/>
-                                  <br/>
-                                  <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                       <strong style="font-weight:700;">Email Alerts</strong>
-                                     <br>Receive instant email notifications when products fall below minimum stock.
-                                  </p>
-                                      <div class="col-md-12">
-                                      <img class="img-responsive rounded shadow" src="screenshots/reorder email body.png?v=sgf"
-                                           style="width: 100%;"/>
-                                  </div>
-                                  <br/>
-                                  <br/>
-                                  <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                     <strong style="font-weight:700;">Report Attachments</strong>  
-                                    <br>Low stock reports are auto-attached to emails for quick review.
-                                    </p>
-                                  <div class="col-md-12">
-                                      <img class="img-responsive rounded shadow" src="screenshots/reorder_email report.png?v=sgf"
-                                           style="width: 100%;"/>
-                                  </div>
-                                  <br/>
-                                  <br/>
-                                  <p style="color: #293134;font-size: 20px;margin-bottom: 40px;letter-spacing: .5px;">
-                                      <strong style="font-weight:700;">In-App Notifications</strong><br>
-                                      Receive low stock reminders directly in the Odoo Discuss module.
-                                    </p>
-                                  <div class="col-md-12">
-                                      <img class="img-responsive rounded shadow" src="screenshots/Inventory-Alerts-in discuss.png?v=sgf"
-                                           style="width: 100%;"/>
-                                  </div>
+
+                                 
+                            
+                                 
+                                 
+                                
+                                
+                               
+                             
+                                 
+                              
+                                  
+                               
+                                
+                                  
+                                  
+                                 
+                                  
 
                               </div>
                            </section>
