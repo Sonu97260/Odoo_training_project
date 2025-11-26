@@ -1,8 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <data>
+
+        <record id="job_application_hr_manager_rule" model="ir.rule">
+            <field name="name">HR Manager: All Job Applications</field>
+            <field name="model_id" ref="job_portal.model_job_application"/>
+            <field name="groups" eval="[(4, ref('job_portal.group_job_portal_hr_manager'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+    </data>
+</odoo>
+
+<!-- <odoo>
     <record id="job_application_hr_manager_rule" model="ir.rule">
         <field name="name">HR Manager: All Job Applications</field>
         <field name="model_id" ref="model_job_application"/>
         <field name="groups" eval="[(4, ref('job_portal.group_job_portal_hr_manager'))]"/>
         <field name="domain_force">[(1, '=', 1)]</field>
     </record>
-</odoo>
+</odoo> -->

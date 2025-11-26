@@ -1,6 +1,6 @@
 <odoo>
 	<record model="ir.ui.view" id="sale_order_view_form">
-			<field name="name">sale.order.view.form</field>
+			<field name="name">.view.form</field>
 			<field name="model">sale.order</field>
 			<field name="inherit_id" ref="sale.view_order_form"/>
 			<field name="arch" type="xml">
@@ -12,18 +12,45 @@
 	</record>
 
 	<record id="view_order_search_inherit_custom" model="ir.ui.view">
-    <field name="name">sale.order.search.inherit.custom</field>
+    <field name="name">view.order.search.inherit.custom</field>
     <field name="model">sale.order</field>
     <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
 		<field name="arch" type="xml">
 			<xpath expr="//filter[@name='my_quotation']" position="after">
 				<separator/>
-				<field name="delivery_info" string="delivery info"/>
+				<field name="delivery_info" string="Delivery Info"/>
 				<field name="delivery_status" string="Delivery Status"/>
 			</xpath>
 		</field>
-	</record>	
+	</record>
+	<!-- <record id="view_order_form" model="ir.ui.view">
+    <field name="name">vsale.order.form</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">	
+            <xpath expr="//header/button[@name='action_confirm']" position="after">
+                    <button name="action_quotation_approve"
+                            type="object"
+                            string="Approve Quotation"
+                            class="btn-primary"
+                            groups="base.group_user">
+                        <visible>Approve</visible>
+                    </button>
+            </xpath>     
+        </field>
+    </record> -->
 
-	 
-	
+    <!-- <record id="view_sale_order_form_crm_info1" model="ir.ui.view">
+        <field name="name">sale.order.form.crm.info</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_information']" position="inside">
+                <group string="CRM Information">
+              
+                    <field name="crm_lead_name"/>
+                </group>
+            </xpath>
+        </field>
+    </record> -->
 </odoo>

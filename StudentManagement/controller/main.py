@@ -43,7 +43,14 @@ class Mycontroller(http.Controller):
         # Check if email already exists
         # existing_user_by_email = User.search([('email', '=', email)], limit=1)
         # if existing_user_by_email:
-        #     return request.render("StudentManagement.student_register_template_id", {
+        #     return request.render("StudentManagement
+        # 
+        # 
+        # 
+        # 
+        #
+        # 
+        # .student_register_template_id", {
         #         'error_message': 'Email already exists! Please use a different email.',
         #         'form_data': post
         #     })

@@ -1,0 +1,21 @@
+<odoo>
+    <record id="graph_view_id" model="ir.ui.view">
+        <field name="name">rest.student.graph</field>
+        <field name="model">rest.student</field>
+        <field name="arch" type="xml">
+            <graph string="Student Marks Graph" type="bar">
+                <field name="name"/>
+                <field name="total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="graph_action_id" model="ir.actions.act_window">
+        <field name="name">Student Marks Graph</field>
+        <field name="res_model">rest.student</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="graph_view_id"/>
+        <field name="domain">[("state","=","confirmed")]</field>
+    </record>
+</odoo>
+

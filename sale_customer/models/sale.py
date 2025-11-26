@@ -5,17 +5,25 @@ from odoo.exceptions import ValidationError
 import logging
 _logger = logging.getLogger(__name__)
 
-class SaleOrder(models.Model):
+class saleorder(models.Model):
     _inherit = 'sale.order'
-    _description = 'Sales Order'
+    _description = 'sales Order'
     _order = 'date_order desc'
-    _inherit = ['mail.thread','mail.activity.mixin']
+  
+    
 
+
+    # state = fields.Selection(selection_add=[('quotation_approved', "Quotation Approved")],tracking=True)
+
+    # def action_quotation_approve(self):
+    #     for rec in self:
+    #         rec.state = 'quotation_approved'
+
+    
 
     delivery_info=fields.Char(string="delivery Info")
     delivery_status=fields.Char(string="delivery Status")
-
-    
+   
     # # @api.model
     # def create(self, vals):
     #     print("=====================sequenc change///////////////")
@@ -27,27 +35,28 @@ class SaleOrder(models.Model):
     
     @api.model
     def create(self, vals):
-        record = super(SaleOrder, self).create(vals)
+        record = super(saleorder, self).create(vals)
         print("\n records-------------------")
         print(">>> Custom create called with vals:", vals)
         if vals.get('name', 'New') == 'New':
-            seq = self.env['ir.sequence'].next_by_code('sale.order') or '/'
+            seq = self.env['ir.sequence'].next_by_code('sale.order.sequence') or '/'
             vals['name'] = seq.replace("S", "SO-2025-", 1)
         return record       
     
     def write(self, vals):
         print("deliver info .........")
         vals['delivery_info'] = "Will deliver in 2 days"
-        return super(SaleOrder, self).write(vals)
-    
+        return super(saleorder, self).write(vals)   
+     
     def _prepare_invoice(self):
         invoice_vals = super()._prepare_invoice()
         _logger.info("Custom SO fields: %s", invoice_vals)
         invoice_vals.update({
-            'delivery_info': self.deelivery_info,
+            'delivery_info': self.delivery_info,
             'delivery_status': self.delivery_status,
         })
         return invoice_vals
+
     
     def action_done_email(self):
         print("sent email.......................")
@@ -66,7 +75,15 @@ class SaleOrder(models.Model):
     #     if vals.get('name', _('New')) == _('New'):
     #        vals['name'] = self.env['ir.sequence'].next_by_code('sale.order.sequence')
     #     return True
+    
 
+    
+
+
+
+
+
+    
 
 
      

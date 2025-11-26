@@ -49,7 +49,14 @@ class JobPosition(models.Model):
 			else:
 				rec.application_count = 0
 
-		
+
+	@api.model
+	def get_dashboard_data(self):
+		total = self.search_count([])
+		return {
+			'total': total,
+		}
+
 
 	
 

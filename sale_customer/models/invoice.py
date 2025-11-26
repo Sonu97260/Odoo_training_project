@@ -23,8 +23,6 @@ class InvoiceOrder(models.Model):
     def action_quotation_send(self):
         print("sending action done...............")
         
-       
-       
 
     @api.depends('line_ids.price_subtotal', 'penalty_amount', 'invoice_date_due')
     def _compute_amount(self):

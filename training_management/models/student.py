@@ -14,7 +14,7 @@ class Student(models.Model):
     age=fields.Integer(string='Age',required=True)
     course=fields.Char(string='Course',required=True)
     user_id = fields.Many2one('res.users', string="Assigned User", default=lambda self: self.env.user)
-
+    total=fields.Float(string="Total",store=True)
 # Add a state field to training.student (draft, confirmed, alumni).
     state=fields.Selection([
         ('draft','Draft'),
@@ -45,6 +45,15 @@ class Student(models.Model):
         if 'user_id' not in vals:
             vals['user_id'] = self.env.uid
         return super().write(vals)
+    
+
+    @api.model
+    def get_dashboard_data(self):
+        total = self.search_count([])
+        print("total students...................",total)
+        return {
+            'total': total,
+        }
 
 
 

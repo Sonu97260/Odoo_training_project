@@ -9,18 +9,15 @@
 						<button type="object" string="Confirmed" class="oe_highlight" name="confirm_students" invisible="state == 'confirmed'"/>
 						<button type="object" string="Alumni" class="oe_highlight" name="action_set_alumni" invisible="state == 'alumni'"/>
 						<field name="state" widget="statusbar" statusbar_visible="draft,confirmed,alumni"/>
-
-
 					</header>
 					<sheet>
 						<group>
 							<field name="name"/>
                             <field name="age"/>
                             <field name="course"/>
-							
+							<field name="total"/>
 						</group>
 					</sheet>	
-			
 				</form>
 			</field>
 		</record>
@@ -33,6 +30,7 @@
 					<field name="name"/>
                     <field name="age"/>
                     <field name="course"/>
+                    <field name="total"/>
 				</list>
 			</field>
 		</record>
@@ -51,6 +49,7 @@
                                 <strong><field name="name"/></strong>
                                 <div>Age: <field name="age"/></div>
                                 <div>Course: <field name="course"/></div>
+                                <div>Total: <field name="total"/></div>
                             </div>
                         </t>
                     </templates>

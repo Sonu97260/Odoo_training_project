@@ -7,11 +7,11 @@
             <field name="partner_to">{{ object.partner_id.email }}</field>
             <field name="body_html" type="html">
                 <p>
-                    hello,
+                    Hello,
                     <strong>Customer Name:<t t-out="object.name"/></strong><br></br>
                     <strong>Conformation Date:<t t-out="object.date_approve"/></strong><br></br>
                     <strong>Total Amount:<t t-out="object.amount_total"/> </strong><br></br>
-                thank you.
+                Thank you.
                 </p>
             </field>
     </record>        

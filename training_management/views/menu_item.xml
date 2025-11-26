@@ -1,6 +1,12 @@
 <odoo>
+     <record id="action_student_dashboard" model="ir.actions.client">
+                <field name="name">Student Dashboard</field>
+                <field name="tag">student_dashboard_tag</field>
+                <field name="target">current</field>
+        </record>
     <menuitem id="menu_training_management_root" name="Training" web_icon="training_management,static/description/icon.png"/>
+    <menuitem id="menu_dashboard" name="Dashboard" parent="menu_training_management_root" action="action_student_dashboard"/>
     <menuitem id="menu_training_management" name="Management" parent="menu_training_management_root"/>
-        <menuitem id="menu_training_student" name="Students" parent="menu_training_management" action="student_actions_id"/>
-        <menuitem id="menu_training_teacher" name="Teachers" parent="menu_training_management" action="teacher_actions_id"/>
+    <menuitem id="menu_training_student" name="Students" parent="menu_training_management" action="student_actions_id"/>
+    <menuitem id="menu_training_teacher" name="Teachers" parent="menu_training_management" action="teacher_actions_id"/>
 </odoo>

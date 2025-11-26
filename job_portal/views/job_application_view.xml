@@ -32,6 +32,7 @@
                         type="object" 
                         string="Reject"
                         invisible="not status in ['draft', 'submitted', 'shortlisted']"/>
+                        
 
                 <button name="send_approval_email" type="object" string="Send Approval Email" class="oe_highlight" invisible="status == 'approve'"/>
                 </header>
@@ -45,6 +46,7 @@
                         <field name="email_domain"/>
                         <field name="status"/>
                     </group>  
+                    
             </sheet>    
                 <chatter>
                     <field name="message_follower_ids" widget="mail_followers" />
@@ -54,6 +56,28 @@
             </form>
         </field>
     </record>
+
+        <!-- #smart button action -->
+    <record id="job_application_form_inherit_smart_button" model="ir.ui.view">
+    <field name="name">job.application.form.smart.button</field>
+    <field name="model">job.application</field>
+    <field name="inherit_id" ref="job_portal.job_application_form_id"/>
+    <field name="arch" type="xml">
+
+        <xpath expr="//sheet" position="before">
+            <div class="oe_button_box" name="button_box">
+                <button name="action_open_position"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-users">
+                    <field string="Position" name="position_count" widget="statinfo"/>
+                </button>
+            </div>
+        </xpath>
+
+    </field>
+    </record>
+
     <record id="job_application_list_view" model="ir.ui.view">
         <field name="name">job.application.list.view</field>
         <field name="model">job.application</field>
@@ -79,11 +103,13 @@
                     <filter name="other_by_name" string="name" context="{'group_by':'name'}"/> 
 
                     <filter name="filter_shortlisted" string="shortlisted" domain="[('status','=','shortlisted')]"/>
-
-                    <!-- <filter name="group_by_status" string="Group by Status" context="{'group_by':'status'}"/> -->
+                <!-- <filter name="group_by_status" string="Group by Status" context="{'group_by':'status'}"/> -->
                 </search>
             </field>
     </record>
+
+
+    
     <record id="job_application_actions" model="ir.actions.act_window">
         <field name="name">Job Application</field>
         <field name="res_model">job.application</field>

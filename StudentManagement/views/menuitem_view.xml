@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-      <record id="action_student_dashboard" model="ir.actions.client">
+    <!-- <record id="action_student_dashboard" model="ir.actions.client">
         <field name="name">Student Dashboard</field>
         <field name="type">ir.actions.client</field>
         <field name="tag">StudentDashboard</field>
         <field name="target">current</field>
-    </record>
+    </record> -->
 
-        <menuitem id="menu_student_root" name="Student Management"  web_icon="StudentManagement,static/description/icon.png"
-        groups="StudentManagement.group_so_tnc"/>
+        <menuitem id="menu_student_root" name="StudentManagement"  web_icon="StudentManagement/static/description/icon.png"/>
+        <!-- groups="StudentManagement.group_so_tnc" -->
 
-        <menuitem id="menu_dashboard" 
-        name="Dashboard" parent="menu_student_root" 
-        action="action_student_dashboard"/> 
+        <!-- <menuitem id="menu_dashboard" name="Dashboard" parent="menu_student_root" 
+        action="action_student_dashboard"/>  -->
 
         <menuitem id="menu_student" name="Students" parent="menu_student_root" action="action_student"/>
         <menuitem id="subject_menu" name="Subject" parent="menu_student_root" action="subject_action_id"/>

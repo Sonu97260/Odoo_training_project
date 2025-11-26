@@ -6,7 +6,7 @@ from psycopg2 import errors
 import base64
 
 class JobPortalController(http.Controller):
-
+    
     @http.route(['/jobs'], type="http", auth="public", website=True)
     def jobs_list(self, **kwargs):
         jobs = request.env['job.position'].sudo().search([('active', '=', True)])

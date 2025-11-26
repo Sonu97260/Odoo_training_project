@@ -21,6 +21,9 @@ class StudentSubject(models.Model):
     subject=fields.Char(string='Subject')
     code=fields.Char(string='Subject code')    
 
+def UserError():
+    raise NotImplementedError
+
 class Student(models.Model):
     _name = 'rest.student'
     _description = 'Student'
@@ -73,11 +76,6 @@ class Student(models.Model):
     
     user_id=fields.Many2one('res.users',string="Realted user",ondelete="cascade")
 
-   
-    #def chech_orm(self):
-    #    search_var=self.env['rest.student'].browse(12)
-    #    print("search var///////////////////",search_var)
-
 
     def send_email(self):
         action_ref=self.env.ref('StudentManagement.action_send_student').read()[0]
@@ -87,16 +85,6 @@ class Student(models.Model):
         }
         return action_ref
     
-    # def show_rainbow(self):
-    #     return{
-    #         'effect':
-    #         {
-    #             'fadeout':'slow',
-    #             'message':'this is the rainbow effect .Congrats you have done it.',
-    #             'img_url':'/web/static/img/smile.svg',
-    #             'type':'rainbow_man',
-    #         }
-    #     }
     def get_active_student_count(self):
         count = self.search_count([('active', '=', True)])
         return {
@@ -116,7 +104,6 @@ class Student(models.Model):
                 template.send_mail(student.id)
                 print("unpaid fees reminder...............................")
             
-    
     def report_student(self):
         report=self.env.ref('StudentManagement.student_report_id').read()[0]
         return report
@@ -169,16 +156,7 @@ class Student(models.Model):
                 raise ValidationError('A student with this student id is exists.')
         return super().write(vals)
 
-    # def unpaid_student(self):
-    #     for rec in self:
-    #         self.status='unpaid'
-	# 		# self.write({'status':'unpaid'})
-		   
-    # def feepaid_student(self):
-	#     for rec in self:
-    #             self.status='feepaid'
-	# 		# self.write({'status':'feespaid'})
-			
+
     def auto_archive_students(self):
         print("Cron running...")
 
@@ -213,8 +191,6 @@ class Student(models.Model):
         else:
             self.is_minor = False
 
-
-
     def action_confirm(self):
         for rec in self:
             rec.state="confirmed"
@@ -222,7 +198,6 @@ class Student(models.Model):
     def action_approve(self):
         for rec in self:
             rec.state="apporved"
-
 
     def action_cancel(self):
         for rec in self:
@@ -234,7 +209,7 @@ class Student(models.Model):
             if student.email:
                 template.send_mail(student.id)
                 print("admission email sent...............................")
-   
+    
     @api.model
     def get_dashboard_data(self):
         total = self.search_count([])
@@ -243,7 +218,6 @@ class Student(models.Model):
             'total': total,
         }
     
-   
     @api.model
     def get_marks_chart_data(self):
         subjects = self.env['rest.student'].search([])
@@ -259,8 +233,22 @@ class Student(models.Model):
                 "average_marks": avg,
             })
         return chart_data
+    
+    # @api.model
+    # def get_graph_json(self):
+    #     records = self.search([])
+    #     print("get graph json.............",records)
+    #     return [
+    #         {"name": rec.name, "total": rec.total}
+    #         for rec in records
+    #     ]
 
-            
+    
+    
+    
 
 
 
+    
+
+    
