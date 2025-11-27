@@ -3,6 +3,7 @@
     'version': '1.0',
     'category': 'Sales/Sales',
     'sequence': 5,
+    'author': 'Wanbuffer Services Pvt Ltd',
     'summary': 'From quotations to invoices',
     'website': 'https://www.odoo.com/app/sales',
     'depends': ['mail','sale', 'digest','account','crm'],
