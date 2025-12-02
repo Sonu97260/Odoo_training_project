@@ -3,8 +3,8 @@
     'category': 'Inventory',
     'summary': 'Inventory Reporting Enhancements',
     'version': '1.0',
-    'sequence': -99,
-    'depends': ['base', 'stock','web'],
+    'sequence': -101,
+    'depends': ['base','stock','web'],
     'data': [
         'secruity/ir.model.access.csv',
         'wizard/aging_wizard_views.xml',
