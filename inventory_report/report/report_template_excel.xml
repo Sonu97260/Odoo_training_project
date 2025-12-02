@@ -1,0 +1,10 @@
+<odoo>
+    <record id="inventory_age_xlsx_report" model="ir.actions.report">
+        <field name="name">Inventory Age XLSX</field>
+        <field name="model">inventory.aging.report</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">inventory_report.inventory_aging_xlsx</field>
+        <field name="report_file">inventory_aging_xlsx</field>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

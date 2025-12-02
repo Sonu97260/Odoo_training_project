@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_inventory_aging_wizard" model="ir.actions.act_window">
+        <field name="name">Inventory Age Report</field>
+        <field name="res_model">inventory.aging.wizard</field>
+        <field name="view_mode">form,list</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_inventory_age_report"
+        name="Inventory Age"
+        parent="stock.menu_warehouse_report"
+        action="action_inventory_aging_wizard"
+        sequence="5"/>
+
+     <record id="view_inventory_aging_wizard_form" model="ir.ui.view">
+        <field name="name">inventory.aging.wizard.form</field>
+        <field name="model">inventory.aging.wizard</field>
+        <field name="arch" type="xml">
+
+            <form string="Inventory Age">
+                <group>
+                    <field name="report_based_on"/>
+                </group>
+                <group invisible="report_based_on != 'location'">
+                    <field name="location_ids" widget="many2many_tags" string="Location"/>
+                </group>
+                <group invisible="report_based_on != 'warehouse'">
+                    <field name="warehouse_ids" widget="many2many_tags" string="Warehouse"/>
+                </group>
+                <group>
+                    <field name="include_all_products"  />
+                </group>
+
+                <group invisible="include_all_products == True">
+                    <field name="product_id"/>
+                </group>
+                
+
+                <!-- <group invisible="include_all_products == True">
+                    <field name="product_id" string="All Product"/>
+                </group> -->
+                <footer>
+                    <button name="action_generate_report"
+                            type="object"
+                            string="Download Excel Report"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>        
+                </footer>
+            </form>
+
+        </field>
+    </record>
+
+  
+
+
+
+</odoo>
