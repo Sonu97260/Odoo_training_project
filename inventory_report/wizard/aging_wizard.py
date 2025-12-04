@@ -80,15 +80,23 @@ class InventoryAgingWizard(models.TransientModel):
         # -----------------------------
         lines = []
         for p in products:
-            qty = p.with_context(ctx).qty_available
-            virtual = p.with_context(ctx).virtual_available
-            value = qty * p.standard_price
 
-            quants_all = self.env['stock.quant'].search([
-            ('product_id', '=', p.id),
-            ('location_id.usage', '=', 'internal')
+            # Qty in selected warehouse/location
+            qty_on_hand = p.with_context(ctx).qty_available
+            virtual_qty = p.with_context(ctx).virtual_available
+
+            # Overall qty (ALL internal locations)
+            all_quants = self.env['stock.quant'].search([
+                ('product_id', '=', p.id),
+                ('location_id.usage', '=', 'internal'),
             ])
-            overall_qty = sum(quants_all.mapped('quantity'))
+            overall_qty = sum(all_quants.mapped('quantity'))
+
+            # Value ($)
+            value_dollar = qty_on_hand * p.standard_price
+
+            # Percent contribution in total valuation
+            percent_value = (value_dollar / total_value_all) * 100 if total_value_all else 0
 
             lines.append((0, 0, {
                 'product_id': p.id,
@@ -96,23 +104,27 @@ class InventoryAgingWizard(models.TransientModel):
                 'name': p.name,
                 'list_price': p.list_price,
 
-                'qty_available': qty,
-                'virtual_available': virtual,
+                'qty_available': qty_on_hand,
+                'virtual_available': virtual_qty,
+                'total_qty': qty_on_hand + virtual_qty,
 
-                'total_qty': qty + virtual,
                 'overall_qty': overall_qty,
-                'oldest_qty': qty,
+                'oldest_qty': qty_on_hand,
 
-                'value_dollar': value,
-                'percent_value': (value / total_value_all) * 100,
+                'percent_value': percent_value,
+                'value_dollar': value_dollar,
+               
+
+               
                 'average_cost': p.standard_price,
                 'average_sale_price': p.list_price,
+
                 'current_cost': p.standard_price,
                 'current_sale_price': p.list_price,
             }))
-            print("line////////////////", lines)
-
         self.line_ids = lines
+
+
 
  
     def action_generate_report(self):
@@ -132,7 +144,7 @@ class InventoryAgingWizard(models.TransientModel):
             cell.font = Font(bold=True)
 
         for line in self.line_ids:
-            print("line data///////", line.total_qty)
+            print("line data..................", line.overall_qty, line.oldest_qty)
             ws.append([
                 line.product_id.id,
                 line.default_code,
@@ -143,12 +155,15 @@ class InventoryAgingWizard(models.TransientModel):
                 round(line.total_qty, 2),
                 round(line.overall_qty, 2),
                 round(line.oldest_qty, 2),
-                round(line.value_dollar, 2),
+
                 round(line.percent_value, 2),
+                round(line.value_dollar, 2),
+               
                 round(line.average_cost, 2),
                 round(line.average_sale_price, 2),
-                round(line.current_sale_price, 2),
                 round(line.current_cost, 2),
+                round(line.current_sale_price, 2),
+  
             ])
 
         fp = io.BytesIO()

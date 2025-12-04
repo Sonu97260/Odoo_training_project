@@ -28,11 +28,12 @@
                         invisible="report_based_on!='location'"/>
                     <field name="include_all_products"/>
                 </group>
-               
+              
             <sheet>
                 <group invisible="include_all_products">
                      <field name="line_ids" >
                             <list editable="bottom" create="false" delete="false" decoration-bf="1">
+                                        <field name="product_id" string="Product"/>
                                         <field name="default_code" string="Internal Reference"/>
                                         <field name="name" string="Name"/>
                                         <field name="list_price" string="Sale Price" widget="monetary" sum="Total Value"/>
@@ -40,6 +41,20 @@
                                         <field name="virtual_available" string="Forecast Quantity" sum="Total Forecast"/>
                                         <field name="total_qty" string="Total Quantity" sum="Total Quantity"/>
                                         <field name="barcode" string="Barcode"/>
+                                        <field name="overall_qty" string="Overall Quantity" sum="Overall Quantity"/>
+                                        <field name="oldest_qty" string="Oldest Quantity" sum="Oldest Quantity"/>
+                                        <field name="percent_value" string="% of Total Value" sum="% of Total Value"/>
+                                        <field name="value_dollar" string="Value in $"
+                                            widget="monetary" sum="Total Value"/>
+                                       
+
+                                        <field name="average_cost" string="Average Cost" sum="Average Cost"
+                                            widget="monetary"/>
+                                        <field name="average_sale_price" string="Average Sale Price" sum="Average Sale Price"/>
+
+                                        <field name="current_cost" string="Current Cost"
+                                            widget="monetary" sum="Current Cost"/>
+                                        <field name="current_sale_price" string="Current Sale Price" sum="Current Sale Price"/>
                             </list>
                     </field>
                 </group>    
