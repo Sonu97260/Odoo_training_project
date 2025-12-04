@@ -4,11 +4,12 @@
     'summary': 'Inventory Reporting Enhancements',
     'version': '1.0',
     'sequence': -101,
-    'depends': ['base','stock','web'],
+    'depends': ['base','stock','web','product'],
     'data': [
         'secruity/ir.model.access.csv',
         'wizard/aging_wizard_views.xml',
-        # 'report/report_template_excel.xml',
+        # 'views/aging_report_views.xml',
+    
     ],
     'installable': True,
     'auto_install': True,

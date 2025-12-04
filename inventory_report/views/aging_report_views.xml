@@ -1,1 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_template_form_view_inherit_custom" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <!-- General Information Section: Add/Ensure Internal Ref, Name, Barcode -->
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="default_code" string="Internal Reference"/>
+                </xpath>
+                <xpath expr="//field[@name='default_code']" position="after">
+                    <field name="barcode" string="Barcode"/>
+                </xpath>
 
+                <!-- Sales Section: Ensure Sale Price -->
+                <xpath expr="//field[@name='list_price']" position="attributes">
+                    <attribute name="string">Sale Price</attribute>
+                    <attribute name="readonly">0</attribute> <!-- Editable -->
+                </xpath>
+
+                <!-- Inventory Tab: Add/Ensure Qty Fields with Auto-Display (Smart Buttons) -->
+                <xpath expr="//page[@name='inventory']" position="inside">
+                    <group string="Stock Information" col="2">
+                        <field name="qty_available" 
+                               string="Quantity on Hand" 
+                               widget="statinfo" 
+                               invisible="not product_type == 'product'"
+                               help="Physical stock across locations."/>
+                        <field name="virtual_available" 
+                               string="Forecast Quantity" 
+                               widget="statinfo" 
+                               invisible="not product_type == 'product'"
+                               help="Virtual stock including moves."/>
+                    </group>
+                </xpath>
+
+                <!-- Automatic Display for Stock (Conditional on Tracking) -->
+                <xpath expr="//field[@name='tracking']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('type', '!=', 'product')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
