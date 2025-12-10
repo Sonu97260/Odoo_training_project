@@ -1,5 +1,22 @@
 <odoo>
-	<record model="ir.ui.view" id="sale_order_view_form">
+    <record model="ir.ui.view" id="sale_order_view_form_customm">
+		<field name="name">sale.order.view.form.customm</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" position="after">
+             <field name="attachment_ids"
+                widget="many2many_binary"
+                string="Attachment" />
+                <button name="action_preview_attachment"
+                    type="object"
+                    string="Preview"
+                    icon="fa-file"/>
+            </xpath>
+            
+        </field>
+    </record>
+	<!-- <record model="ir.ui.view" id="sale_order_view_form">
 			<field name="name">.view.form</field>
 			<field name="model">sale.order</field>
 			<field name="inherit_id" ref="sale.view_order_form"/>
@@ -9,9 +26,9 @@
 					<field name="delivery_status"/>
 				</xpath>
 			</field>
-	</record>
+	</record> -->
 
-	<record id="view_order_search_inherit_custom" model="ir.ui.view">
+	<!-- <record id="view_order_search_inherit_custom" model="ir.ui.view">
     <field name="name">view.order.search.inherit.custom</field>
     <field name="model">sale.order</field>
     <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
@@ -22,7 +39,7 @@
 				<field name="delivery_status" string="Delivery Status"/>
 			</xpath>
 		</field>
-	</record>
+	</record> -->
 	<!-- <record id="view_order_form" model="ir.ui.view">
     <field name="name">vsale.order.form</field>
     <field name="model">sale.order</field>
@@ -53,4 +70,5 @@
             </xpath>
         </field>
     </record> -->
+
 </odoo>

@@ -37,7 +37,7 @@ class InvoiceOrder(models.Model):
                     penalty = (move.amount_total * 0.05) * days_overdue
 
         move.penalty_amount = move.currency_id.round(penalty)
-        #add
+        
         # move.amount_total = move.currency_id.round(move.amount_total + penalty)
         move.amount_total = 777
         move.amount_residual = move.currency_id.round(move.amount_residual + penalty)

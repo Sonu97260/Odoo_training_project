@@ -8,7 +8,8 @@
     'website': 'https://www.odoo.com/app/sales',
     'depends': ['mail','sale', 'digest','account','crm'],
     'data': [
-        # 'data/ir_sequence_sale.xml',
+        #'data/ir_sequence_sale.xml',
+        # 'security/ir.model.access.csv',
         'views/sale_order_view.xml',
         'data/sale_action.xml',
         'views/action_mail_template.xml',
@@ -16,6 +17,7 @@
         'views/invoice_order_view.xml',
         'views/report_invoice.xml',
         ],
+ 
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
