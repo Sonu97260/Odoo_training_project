@@ -1,0 +1,16 @@
+<template>
+    <t t-name="custom.m2m.attachment.preview"
+    t-inherit="web.Many2ManyBinaryField.attachment_preview"
+    t-inherit-mode="extension">
+
+        <xpath expr="//div[@class='o_attachment_wrap']/div[contains(@class,'o_image_box')]" position="replace">
+            <div class="o_image_box float-start"
+                t-att-data-tooltip="'Preview ' + file.name">
+                <span class="o_image o_hover"
+                    style="cursor: zoom-in;"
+                    t-on-click="() => this.onClickPreview(file, previewFiles)"/>
+            </div>
+        </xpath>
+
+    </t>
+</template>

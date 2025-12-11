@@ -9,9 +9,6 @@ _logger = logging.getLogger(__name__)
 #     _inherit = 'sale.order'
 #     _description = 'sales Order'
 
-#     attachment_file = fields.Binary("Attachment")
-#     attachment_filename = fields.Char("Filename")
-
 
 #     # state = fields.Selection(selection_add=[('quotation_approved', "Quotation Approved")],tracking=True)
 
@@ -81,31 +78,13 @@ class saleorder(models.Model):
     _inherit = 'sale.order.line'
     _description = 'sales Order Line'
 
-    # attachment_file = fields.Binary("Attachment")
     attachment_ids = fields.Many2many(
         'ir.attachment',
-        'sale_line_ir_attachment_rel',
-        'sale_line_id',
-        'attachment_id',
-        string="Attachments"
-)
-
-    def action_preview_attachment(self):
-        self.ensure_one()
-        if not self.attachment_ids:
-            return
-        attachment = self.attachment_ids[0]  # preview first attachment
-        return {
-            'type': 'ir.actions.act_url',
-            'url': f'/web/content/{attachment.id}?download=false',
-            'target': 'new',
-        }
-
-
-   
+        string='Attachments',
+    )
 
     
 
 
-     
-   
+        
+    

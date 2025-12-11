@@ -17,6 +17,12 @@
         'views/invoice_order_view.xml',
         'views/report_invoice.xml',
         ],
+    'assets': {
+        'web.assets_backend': [
+        'sale_customer/static/src/js/attachment.js',
+        'sale_customer/static/src/xml/attachment_view.xml',
+        ],
+    },
  
     'installable': True,
     'application': True,

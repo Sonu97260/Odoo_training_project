@@ -4,14 +4,12 @@
 		<field name="model">sale.order</field>
 		<field name="inherit_id" ref="sale.view_order_form"/>
 		<field name="arch" type="xml">
-            <xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" position="after">
-             <field name="attachment_ids"
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" 
+            position="after">
+                <field name="attachment_ids"
                 widget="many2many_binary"
-                string="Attachment" />
-                <button name="action_preview_attachment"
-                    type="object"
-                    string="Preview"
-                    icon="fa-file"/>
+                options="{'no_create': True}"/>
+
             </xpath>
             
         </field>
