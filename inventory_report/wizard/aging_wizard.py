@@ -24,7 +24,6 @@ class InventoryAgingWizard(models.TransientModel):
     include_all_products = fields.Boolean(default=False)
     line_ids = fields.Many2many (
         'inventory.aging.wizard.line',
-       
         string="Inventory Aging Lines"
     )
 
@@ -33,109 +32,102 @@ class InventoryAgingWizard(models.TransientModel):
 
     @api.onchange('report_based_on', 'warehouse_ids', 'location_ids', 'include_all_products')
     def _onchange_load_products(self):
-        self.line_ids.unlink()
+        self.line_ids = [(5, 0, 0)]  # clear lines safely
 
+        base_locs = self.env['stock.location']
+
+        # Warehouse-based selection
         if self.report_based_on == 'warehouse' and self.warehouse_ids:
-            # For warehouses → use lot_stock_id for each selected warehouse
-            locs = self.warehouse_ids.mapped('lot_stock_id')
-        else:
-            locs = self.location_ids
+            base_locs = self.warehouse_ids.mapped('lot_stock_id')
 
-        # Fetch all child locations
-        if locs:
-            locs = self.env['stock.location'].search([('id', 'child_of', locs.ids)])
+        # Location-based selection
+        elif self.report_based_on == 'location' and self.location_ids:
+            base_locs = self.location_ids
 
-        location_ids = locs.ids if locs else []
-        ctx = {'location': location_ids} if location_ids else {}
+        # If nothing selected → stop
+        if not base_locs:
+            return
 
-      
+        # Expand to include child locations
+        all_locs = self.env['stock.location'].search([('id', 'child_of', base_locs.ids)])
+        location_ids = all_locs.ids
+
+        ctx = {'location': location_ids}
+
+        # -----------------------------
+        # 2. Load products
+        # -----------------------------
         if self.include_all_products:
             products = self.env['product.product'].search([('type', '=', 'product')])
+
         else:
-            if location_ids:
+            quants = self.env['stock.quant'].search([
+                ('location_id', 'in', all_locs.ids),
+                ('quantity', '>', 0)
+            ])
+            products = quants.mapped('product_id')
 
-                quants = self.env['stock.quant'].search([
-                    ('location_id', 'child_of', location_ids),
-                    ('quantity', '>', 0)
-                ])
-                products = quants.mapped('product_id')
-            else:
-                products = self.env['product.product']
-
-        total_qty_all = 0
-        total_value_all = 0
-
-        for p in products:
-            qty = p.with_context(ctx).qty_available
-            virtual = p.with_context(ctx).virtual_available
-
-            total_qty_all += qty + virtual
-            total_value_all += qty * p.standard_price
-
-        total_qty_all = total_qty_all or 1.0
-        total_value_all = total_value_all or 1.0
+        if not products:
+            return
 
         # -----------------------------
-        # 4. Create Wizard Lines
+        # 3. Totals for percent calculation
         # -----------------------------
-        lines = []
+        total_value_all = sum(
+            p.with_context(ctx).qty_available * p.standard_price
+            for p in products
+        ) or 1.0  # avoid divide-by-zero
+
+        line_vals = []
         for p in products:
 
-            # Qty in selected warehouse/location
             qty_on_hand = p.with_context(ctx).qty_available
             virtual_qty = p.with_context(ctx).virtual_available
 
-            # Overall qty (ALL internal locations)
             all_quants = self.env['stock.quant'].search([
                 ('product_id', '=', p.id),
                 ('location_id.usage', '=', 'internal'),
             ])
             overall_qty = sum(all_quants.mapped('quantity'))
 
-            # Value ($)
             value_dollar = qty_on_hand * p.standard_price
+            percent_value = (value_dollar / total_value_all) * 100
 
-            # Percent contribution in total valuation
-            percent_value = (value_dollar / total_value_all) * 100 if total_value_all else 0
+   
+              
 
-            lines.append((0, 0, {
+            line_vals.append((0, 0, {
                 'product_id': p.id,
                 'default_code': p.default_code,
                 'name': p.name,
-                'list_price': p.list_price,
-
-                'qty_available': qty_on_hand,
-                'virtual_available': virtual_qty,
+            
                 'total_qty': qty_on_hand + virtual_qty,
+                'barcode': p.barcode,
 
                 'overall_qty': overall_qty,
                 'oldest_qty': qty_on_hand,
 
-                'percent_value': percent_value,
                 'value_dollar': value_dollar,
-               
+                'percent_value': percent_value,
 
-               
                 'average_cost': p.standard_price,
                 'average_sale_price': p.list_price,
 
                 'current_cost': p.standard_price,
                 'current_sale_price': p.list_price,
             }))
-        self.line_ids = lines
 
+        self.line_ids = line_vals
 
-
- 
     def action_generate_report(self):
         wb = Workbook()
         ws = wb.active
         ws.title = "Inventory Aging Report"
 
         headers = [
-            "ID", "Reference", "Product Name", "Sale Price",
-            "Qty On Hand", "Virtual Available", "Total Qty",
-            "Overroll Oty", "Value ($)", "Percent Value",
+            "ID", "Reference", "Product Name", 
+            "Total Qty",
+            "Overroll Oty", "Value", "Percent Value",'Oldest qty',
             "Avg Cost", "Avg Sale Price", "Current Sale Price", "Current Cost"
         ]
         ws.append(headers)
@@ -144,20 +136,18 @@ class InventoryAgingWizard(models.TransientModel):
             cell.font = Font(bold=True)
 
         for line in self.line_ids:
-            print("line data..................", line.overall_qty, line.oldest_qty)
             ws.append([
                 line.product_id.id,
                 line.default_code,
                 line.name,
-                round(line.list_price, 2),
-                round(line.qty_available, 2),
-                round(line.virtual_available, 2),
+               
                 round(line.total_qty, 2),
+                
                 round(line.overall_qty, 2),
-                round(line.oldest_qty, 2),
+                round(line.value_dollar, 2),
 
                 round(line.percent_value, 2),
-                round(line.value_dollar, 2),
+                round(line.oldest_qty, 2),
                
                 round(line.average_cost, 2),
                 round(line.average_sale_price, 2),

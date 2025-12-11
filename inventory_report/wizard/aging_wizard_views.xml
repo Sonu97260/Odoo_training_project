@@ -22,17 +22,18 @@
             <form string="Inventory Age">
                 <group>
                     <field name="report_based_on"/>
+
                     <field name="warehouse_ids" widget="many2many_tags"
                         invisible="report_based_on!='warehouse'"/>
                     <field name="location_ids" widget="many2many_tags"
                         invisible="report_based_on!='location'"/>
                     <field name="include_all_products"/>
                 </group>
-              
             <sheet>
                 <group invisible="include_all_products">
                      <field name="line_ids" >
                             <list editable="bottom" create="false" delete="false" decoration-bf="1">
+
                                         <field name="product_id" string="Product"/>
                                         <field name="default_code" string="Internal Reference"/>
                                         <field name="name" string="Name"/>
@@ -43,8 +44,8 @@
                                         <field name="barcode" string="Barcode"/>
                                         <field name="overall_qty" string="Overall Quantity" sum="Overall Quantity"/>
                                         <field name="oldest_qty" string="Oldest Quantity" sum="Oldest Quantity"/>
-                                        <field name="percent_value" string="% of Total Value" sum="% of Total Value"/>
-                                        <field name="value_dollar" string="Value in $"
+                                        <field name="percent_value" string="% in Total Value" sum="% of Total Value"/>
+                                        <field name="value_dollar" string="Value INR"
                                             widget="monetary" sum="Total Value"/>
                                        
 
@@ -64,11 +65,8 @@
                         <button string="Download XLSX Report" type="object" name="action_generate_report" class="btn-primary"/>
                         <!-- <button string="Print PDF" type="object" name="action_print_pdf" class="btn-secondary"/> -->
                         <button string="Close" class="btn-secondary" special="cancel"/>
-                    </footer>
-
-        
+                    </footer> 
             </form>
-
         </field>
     </record>
 
