@@ -22,102 +22,101 @@ class InventoryAgingWizard(models.TransientModel):
     )
 
     include_all_products = fields.Boolean(default=False)
-    line_ids = fields.Many2many (
-        'inventory.aging.wizard.line',
-        string="Inventory Aging Lines"
+    line_ids = fields.One2many(
+    'inventory.aging.wizard.line',
+    'wizard_id',
+    string="Inventory Aging Lines"
     )
+
 
     file_name = fields.Char(default="Inventory_Aging_Report.xlsx")
     file_data = fields.Binary()
 
     @api.onchange('report_based_on', 'warehouse_ids', 'location_ids', 'include_all_products')
     def _onchange_load_products(self):
-        self.line_ids = [(5, 0, 0)]  # clear lines safely
+        self.ensure_one()
+        self.line_ids = [(5, 0, 0)]
 
-        base_locs = self.env['stock.location']
-
-        # Warehouse-based selection
-        if self.report_based_on == 'warehouse' and self.warehouse_ids:
+        if self.report_based_on == 'warehouse':
+            if not self.warehouse_ids:
+                return
             base_locs = self.warehouse_ids.mapped('lot_stock_id')
-
-        # Location-based selection
-        elif self.report_based_on == 'location' and self.location_ids:
+        else:
+            if not self.location_ids:
+                return
             base_locs = self.location_ids
 
-        # If nothing selected → stop
-        if not base_locs:
-            return
+        # include child locations
+        all_locs = self.env['stock.location'].search([
+            ('id', 'child_of', base_locs.ids),
+            ('usage', '=', 'internal')
+        ])
 
-        # Expand to include child locations
-        all_locs = self.env['stock.location'].search([('id', 'child_of', base_locs.ids)])
         location_ids = all_locs.ids
-
         ctx = {'location': location_ids}
 
-        # -----------------------------
-        # 2. Load products
-        # -----------------------------
-        if self.include_all_products:
-            products = self.env['product.product'].search([('type', '=', 'product')])
 
+        if self.include_all_products:
+            quants = self.env['stock.quant'].search([
+                ('location_id', 'in', location_ids)
+            ])
+            products = quants.mapped('product_id')
         else:
             quants = self.env['stock.quant'].search([
-                ('location_id', 'in', all_locs.ids),
+                ('location_id', 'in', location_ids),
                 ('quantity', '>', 0)
             ])
             products = quants.mapped('product_id')
 
+
         if not products:
             return
 
-        # -----------------------------
-        # 3. Totals for percent calculation
-        # -----------------------------
+        qty_map = {}
+        quants_all = self.env['stock.quant'].search([
+            ('location_id', 'in', location_ids)
+        ])
+
+        for q in quants_all:
+            qty_map[q.product_id.id] = qty_map.get(q.product_id.id, 0) + q.quantity
+
+
         total_value_all = sum(
-            p.with_context(ctx).qty_available * p.standard_price
+            qty_map.get(p.id, 0) * (p.standard_price or 0)
             for p in products
-        ) or 1.0  # avoid divide-by-zero
+        ) or 1.0
 
-        line_vals = []
+        lines = []
         for p in products:
+            qty = qty_map.get(p.id, 0.0)
+            virtual = p.with_context(ctx).virtual_available or 0.0
 
-            qty_on_hand = p.with_context(ctx).qty_available
-            virtual_qty = p.with_context(ctx).virtual_available
+            value = qty * (p.standard_price or 0)
+            percent = (value / total_value_all) * 100
 
-            all_quants = self.env['stock.quant'].search([
-                ('product_id', '=', p.id),
-                ('location_id.usage', '=', 'internal'),
-            ])
-            overall_qty = sum(all_quants.mapped('quantity'))
-
-            value_dollar = qty_on_hand * p.standard_price
-            percent_value = (value_dollar / total_value_all) * 100
-
-   
-              
-
-            line_vals.append((0, 0, {
-                'product_id': p.id,
+            lines.append((0, 0, {
+                # 'product_id': p.id,
                 'default_code': p.default_code,
                 'name': p.name,
-            
-                'total_qty': qty_on_hand + virtual_qty,
                 'barcode': p.barcode,
 
-                'overall_qty': overall_qty,
-                'oldest_qty': qty_on_hand,
+                'qty_available': qty,
+                'virtual_available': virtual,
+                'total_qty': qty + virtual,
+                'overall_qty': qty,
+                'oldest_qty': qty,
 
-                'value_dollar': value_dollar,
-                'percent_value': percent_value,
+                'value_dollar': value,
+                'percent_value': percent,
 
                 'average_cost': p.standard_price,
                 'average_sale_price': p.list_price,
-
                 'current_cost': p.standard_price,
                 'current_sale_price': p.list_price,
             }))
 
-        self.line_ids = line_vals
+        self.line_ids = lines
+
 
     def action_generate_report(self):
         wb = Workbook()
@@ -137,24 +136,21 @@ class InventoryAgingWizard(models.TransientModel):
 
         for line in self.line_ids:
             ws.append([
+
                 line.product_id.id,
                 line.default_code,
                 line.name,
-               
                 round(line.total_qty, 2),
-                
                 round(line.overall_qty, 2),
                 round(line.value_dollar, 2),
-
                 round(line.percent_value, 2),
                 round(line.oldest_qty, 2),
-               
                 round(line.average_cost, 2),
                 round(line.average_sale_price, 2),
                 round(line.current_cost, 2),
                 round(line.current_sale_price, 2),
-  
             ])
+
 
         fp = io.BytesIO()
         wb.save(fp)
@@ -177,7 +173,8 @@ class InventoryAgingWizardLine(models.TransientModel):
     _description = 'Inventory Aging Report Line'
     _order = 'qty_available DESC'
 
-    
+    wizard_id = fields.Many2one('inventory.aging.wizard', ondelete='cascade')
+
     product_id = fields.Many2one('product.product')
 
     default_code = fields.Char()

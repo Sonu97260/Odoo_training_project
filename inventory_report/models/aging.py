@@ -22,5 +22,4 @@ class ProductTemplate(models.Model):
         help="International barcode (e.g., EAN13)."
     )
 
-    # Stock fields are on product.product, but accessible via template
     
