@@ -30,7 +30,7 @@ export class StudentDashboard extends Component {
                 );
                 console.log("Fetched students://///////", student_data);
 
-                this.state.students = student_data.map((stu) => ({
+
                 id: stu.id,
                 name: stu.name,
                 age: stu.age,
